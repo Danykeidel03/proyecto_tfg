@@ -1,7 +1,5 @@
 <?php
 
-// use phpGPX\phpGPX;
-
 require 'conexion.php';
 require '../vendor/autoload.php';
 $db = new Conexion();

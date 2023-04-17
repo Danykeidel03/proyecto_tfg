@@ -82,7 +82,7 @@
         background-color: #afafaf;
         margin: auto;
         width: 1500px;
-        height: 700px;
+        height: 900px;
         margin-top: 150px;
     }
 </style>
@@ -108,8 +108,8 @@ include_once('footer/header.php')
         <form action="#" method="post" enctype='multipart/form-data'>
             <label id="foto1">Foto Del Vehiculo</label>
             <input name='foto' id='foto' type='file'><br>
-            <label id="marca">Marca</label>
-            <select>
+            <label id="marca1">Marca</label>
+            <select id="marca" name="marca">
                 <?php
                 foreach ($marcas as $marca) {
                     echo "<option value='$marca[Nombre]'>$marca[Nombre]</option>";
@@ -120,19 +120,19 @@ include_once('footer/header.php')
             <input type="text" class="modelo" name="modelo" id="modelo"><br>
             <label id="acabado1">Acabado</label>
             <input type="text" class="acabado" name="acabado" id="acabado"><br>
-            <label id="combustible">Combustible</label>
-            <select>
+            <label id="combustible1">Combustible</label>
+            <select id="combustible" name="combustible">
                 <option value='diesel'>Diesel</option>
                 <option value='gasolina'>Gasolina</option>
                 <option value='hibrido'>Hibrido</option>
                 <option value='electrico'>Electrico</option>
             </select><br>
-            <label id="año1">Año de Matriculacion</label>
-            <input type="number" class="año" name="año" id="año" min='1900' max='2023'><br>
+            <label id="ano1">Año de Matriculacion</label>
+            <input type="number" class="ano" name="ano" id="ano" min='1900' max='2023'><br>
             <label id="cv1">Caballos</label>
             <input type="number" class="cv" name="cv" id="cv"><br>
-            <label id="cambio">Cambio</label>
-            <select>
+            <label id="cambio1">Cambio</label>
+            <select id="cambio" name="cambio">
                 <option value='manual'>Manual</option>
                 <option value='automatico'>Automatico</option>
             </select><br>
@@ -149,6 +149,9 @@ include_once('footer/header.php')
             <label for="descripcion1">Descripcion</label>
             <textarea id="descripcion" name="descripcion" rows="4" cols="50">
             </textarea>
+            <br>
+            <input id="subir_coche" class="subir_coche"  name="subir_coche" type="submit" value="Subir Coche">
+            <br>
         </form>
     </div>
     <br><br><br><br><br><br><br><br>
