@@ -56,7 +56,17 @@
 
     }
 
-    select,#foto,#modelo,#acabado,#año,#cv,#color_ext,#color_int,#km,#matricula,#precio {
+    select,
+    #foto,
+    #modelo,
+    #acabado,
+    #ano,
+    #cv,
+    #color_ext,
+    #color_int,
+    #km,
+    #matricula,
+    #precio {
         margin-bottom: 20px;
         width: 400px;
     }
@@ -136,6 +146,12 @@ include_once('footer/header.php')
                 <option value='manual'>Manual</option>
                 <option value='automatico'>Automatico</option>
             </select><br>
+            <label id="puertas1">Numero de Puertas</label>
+            <select id="puertas" name="puertas">
+                <option value='3'>3</option>
+                <option value='4'>4</option>
+                <option value='5'>5</option>
+            </select><br>
             <label id="color_ext1">Color exterior</label>
             <input type="text" class="color_ext" name="color_ext" id="color_ext"><br>
             <label id="color_int1">Color interior</label>
@@ -150,9 +166,10 @@ include_once('footer/header.php')
             <textarea id="descripcion" name="descripcion" rows="4" cols="50">
             </textarea>
             <br>
-            <input id="subir_coche" class="subir_coche"  name="subir_coche" type="submit" value="Subir Coche">
+            <input id="subir_coche" class="subir_coche" name="subir_coche" type="submit" value="Subir Coche">
             <br>
         </form>
+
     </div>
     <br><br><br><br><br><br><br><br>
 
@@ -163,5 +180,115 @@ include_once('footer/header.php')
     <footer id="footer"></footer>
 </body>
 <script src="footer/añadirheadersfooters.js"></script>
+
+<script>
+    let insert = document.getElementById('subir_coche')
+    insert.addEventListener('click', añadirCoche)
+
+    function añadirCoche() {
+
+        event.preventDefault();
+
+        let marcaImput = document.getElementById('marca')
+        let marca = marcaImput.value;
+
+        let modeloImput = document.getElementById('modelo')
+        let modelo = modeloImput.value;
+
+        let acabadoImput = document.getElementById('acabado')
+        let acabado = acabadoImput.value;
+
+        let combustibleImput = document.getElementById('combustible')
+        let combustible = combustibleImput.value;
+
+        let anoImput = document.getElementById('ano')
+        let ano = anoImput.value;
+
+        let cvImput = document.getElementById('cv')
+        let cv = cvImput.value;
+
+        let cambioImput = document.getElementById('cambio')
+        let cambio = cambioImput.value;
+
+        let color_extImput = document.getElementById('color_ext')
+        let color_ext = color_extImput.value;
+
+        let color_intImput = document.getElementById('color_int')
+        let color_int = color_intImput.value;
+
+        let matriculaImput = document.getElementById('matricula')
+        let matricula = matriculaImput.value;
+
+        let kmImput = document.getElementById('km')
+        let km = kmImput.value;
+
+        let precioImput = document.getElementById('precio')
+        let precio = precioImput.value;
+
+        let descripcionImput = document.getElementById('descripcion')
+        let descripcion = descripcionImput.value;
+
+        let puertasImput = document.getElementById('puertas')
+        let puertas = puertasImput.value;
+
+        let id = localStorage.getItem('id')
+        let usernme = localStorage.getItem('usernme')
+
+        if (modelo != "" && acabado != "" && ano != "" && cv != "" && color_ext != "" && color_int != "" && matricula != "" && km != "" && precio != "" && descripcion != "") {
+            let coche = {
+                id: id,
+                username: username,
+                marca: marca,
+                modelo: modelo,
+                acabado: acabado,
+                combustible: combustible,
+                ano: ano,
+                cv: cv,
+                cambio: cambio,
+                color_ext: color_ext,
+                color_int: color_int,
+                matricula: matricula,
+                km: km,
+                precio: precio,
+                descripcion: descripcion,
+                puertas: puertas
+            }
+
+            let cocheJson = JSON.stringify(coche);
+            console.log(cocheJson);
+
+            fetch('APIS/insertar_coche.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charser=utf-8'
+                    },
+                    body: rutaJson
+                })
+
+                .then(response => {
+                    switch (response.status) {
+                        case 201:
+                            alert("Insertado Con Exito");
+                            break;
+                        case 409:
+                            alert("Vehiculo existente");
+                            break;
+                        case 400:
+                            alert("ERROR");
+                    }
+                    return response.json();
+
+                })
+
+                .then(data => {
+                    console.log(data);
+
+                })
+        } else {
+            alert('Faltan Datos Por Rellenar')
+        }
+
+    }
+</script>
 
 </html>
