@@ -371,7 +371,7 @@
                             Color: ${color}<br>
                         </div>
                         <div id='ver'>
-                            <form action=''>
+                            <form action='detalleCoche.php'>
                                 <div id='min'><button>Ver Mas >></button></div>
                                 <input id="id" name="id" type="hidden" value="${id}">
                             </form>

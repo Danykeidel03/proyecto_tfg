@@ -41,8 +41,8 @@
 
     .div4 {
         grid-area: 1 / 6 / 2 / 7;
-        margin-top: 20px;
-        margin-left: 15px;
+        margin-top: -1px;
+        margin-left: 25px;
     }
 
     p {
@@ -70,7 +70,7 @@
             <p>Informacion</p>
         </div>
         <div class="div4">
-            <p>Informacion</p>
+            <img src="logo.png" width="100px" height="80px">
         </div>
     </div>
 </footer>

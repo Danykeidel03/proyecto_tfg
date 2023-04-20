@@ -328,9 +328,9 @@ include_once('footer/header.php')
 
     function mostrarNombre() {
         const input = document.getElementById('foto');
-        if(input.files[0] == undefined){
+        if (input.files[0] == undefined) {
             alert('Faltan La foto')
-        }else{
+        } else {
             const nombreArchivo = input.files[0].name;
             return nombreArchivo
         }

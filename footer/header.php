@@ -308,28 +308,31 @@
 
     .div1_4 {
         grid-area: 1 / 1 / 2 / 2;
-        margin-top: 8px;
+        margin-top: -11px;
     }
 
     .div2_4 {
         grid-area: 1 / 2 / 2 / 3;
         margin-top: 8px;
+        margin-left: 30px;
     }
 
     .div3_4 {
         grid-area: 1 / 3 / 2 / 4;
         margin-top: 8px;
+        margin-left: 30px;
     }
 
     .div4_4 {
         grid-area: 1 / 4 / 2 / 5;
         margin-top: 8px;
+        margin-left: 30px;
     }
 
     .div5_4 {
         grid-area: 1 / 5 / 2 / 6;
         margin-top: 8px;
-        margin-left: 14px;
+        margin-left: 54px;
     }
 
     #inicio {
@@ -510,7 +513,7 @@
 <header id="con_token">
     <div class="parent_4">
         <div class="div1_4">
-            <p>LOGO</p>
+        <img src="logo.png" width="100px" height="80px">
         </div>
         <div class="div2_4">
             <a href="index.php" id="inicio">INICIO</a>
