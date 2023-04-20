@@ -30,10 +30,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $precio = $coche->precio;
         $descripcion = $coche->descripcion;
         $puertas = $coche->puertas;
+        $foto = $coche->foto;
 
         //CONSULTA
 
-        $sql = "INSERT INTO `practicas`.`vehiculos_venta` (`marca`, `modelo`, `acabado`, `color_ext`, `color_int`, `precio`, `cv`, `combustible`, `puertas`, `km`, `ano`, `id_vendedor`, `matricula`, `cambio`) VALUES ('$marca', '$modelo', '$acabado', '$color_ext', '$color_int', '$precio', '$cv', '$combustible', '$puertas', '$km', '$ano', '$id', '$matricula', '$cambio');";
+        $sql = "INSERT INTO `practicas`.`vehiculos_venta` (`marca`, `modelo`, `acabado`, `color_ext`, `color_int`, `precio`, `cv`, `combustible`, `puertas`, `km`, `ano`, `foto`, `id_vendedor`, `matricula`, `cambio`, `estado`) VALUES ('$marca', '$modelo', '$acabado', '$color_ext', '$color_int', '$precio', '$cv', '$combustible', '$puertas', '$km', '$ano', '$foto', '$id', '$matricula', '$cambio' , 'A la Venta');        ";
 
         //CONSULTA PARA COMPROBAR QUE EXISTE
         $sql2 = "SELECT * FROM `practicas`.`vehiculos_venta` WHERE matricula = '$matricula'";
@@ -61,6 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("HTTP/1.1 400 Bad Request");
         }
     } else {
-        header("HTTP/1.1 400 Bad Request");
+        header("HTTP/1.1 401 Bad Request");
     }
 }

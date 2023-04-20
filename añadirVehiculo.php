@@ -115,7 +115,7 @@
         border-radius: 6px;
         margin: auto;
         width: 800px;
-        height: 1900px;
+        height: 1950px;
         margin-top: 130px;
         -webkit-box-shadow: 6px 7px 13px -4px rgba(0, 0, 0, 0.55);
         -moz-box-shadow: 6px 7px 13px -4px rgba(0, 0, 0, 0.55);
@@ -150,6 +150,46 @@
         background-color: #d9d9d9;
     }
 
+    .subir_coche_foto {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #f7f7f7;
+        color: #333;
+        border: none;
+        border-radius: 4px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        height: 44px;
+        margin-top: 15px;
+        pointer-events: none;
+    }
+
+    .act {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #f7f7f7;
+        color: #333;
+        border: none;
+        border-radius: 4px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        height: 44px;
+        margin-top: 15px;
+    }
+
+    #subir_coche_foto:hover {
+        background-color: #7f0000;
+        color: white;
+    }
+
+    #subir_coche_foto:active {
+        background-color: #d9d9d9;
+    }
+
     textarea {
         display: block;
         width: 695px;
@@ -164,23 +204,24 @@
         margin-top: 15px;
 
     }
-    #foto{
+
+    #foto {
         display: inline-block;
-      padding: 10px;
-      background-color: #f7f7f7;
-      color: #333;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
+        padding: 10px;
+        background-color: #f7f7f7;
+        color: #333;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
     }
 
-    #foto1{
+    #foto1 {
         display: inline-block;
-      margin-left: -2px;
-      vertical-align: middle;
+        margin-left: -2px;
+        vertical-align: middle;
     }
 
-    #volver{
+    #volver {
         margin-top: 20px;
         margin-left: 47px;
     }
@@ -229,7 +270,7 @@ include_once('footer/header.php')
             <label id="ano1">Año de Matriculacion</label>
             <input type="number" class="ano" name="ano" id="ano" min='1900' max='2023'><br>
             <label id="cv1">Caballos</label>
-            <input type="number" class="cv" name="cv" id="cv"><br>
+            <input type="number" class="cv" name="cv" id="cv" min="10"><br>
             <label id="cambio1">Cambio</label>
             <select id="cambio" name="cambio">
                 <option value='manual'>Manual</option>
@@ -250,15 +291,32 @@ include_once('footer/header.php')
             <label id="matricula1">Matricula</label>
             <input type="text" class="matricula" name="matricula" id="matricula"><br>
             <label id="precio1">Precio</label>
-            <input type="number" class="precio" name="precio" id="precio"><br>
+            <input type="number" class="precio" name="precio" id="precio" min="10"><br>
             <label for="descripcion1">Descripcion</label>
             <textarea id="descripcion" name="descripcion" rows="4" cols="50">
             </textarea>
             <br>
             <input name='subir_coche' id='subir_coche' class='subir_coche' type="submit" value="Subir Coche">
+            <br>
+            <input name='subir_coche_foto' id='subir_coche_foto' class='subir_coche_foto' type="submit" value="Subir Foto">
+            (Para que se publique primero debes subir foto y darle a este boton)
         </form>
         <a href="catalogo.php" id="volver">VOLVER</a>
     </div>
+
+    <?php
+    if (isset($_POST['subir_coche_foto'])) {
+
+        $n_arch = $_FILES['foto']['name'];
+        $archivo = $_FILES['foto']['tmp_name'];
+
+        $ruta = "fotoCoche/" . $n_arch;
+        $base_datos = "fotoCoche/" . $n_arch;
+
+        move_uploaded_file($archivo, $ruta);
+    }
+    ?>
+
     <br><br><br><br><br>
     <footer id="footer"></footer>
 </body>
@@ -268,9 +326,21 @@ include_once('footer/header.php')
     let insert = document.getElementById('subir_coche')
     insert.addEventListener('click', añadirCoche)
 
+    function mostrarNombre() {
+        const input = document.getElementById('foto');
+        if(input.files[0] == undefined){
+            alert('Faltan La foto')
+        }else{
+            const nombreArchivo = input.files[0].name;
+            return nombreArchivo
+        }
+    }
+
     function añadirCoche() {
 
         event.preventDefault();
+
+        let foto = mostrarNombre()
 
         let marcaImput = document.getElementById('marca')
         let marca = marcaImput.value;
@@ -315,9 +385,12 @@ include_once('footer/header.php')
         let puertas = puertasImput.value;
 
         let id = localStorage.getItem('id')
+
+        console.log(id);
+
         let username = localStorage.getItem('usernme')
 
-        if (modelo != "" && acabado != "" && ano != "" && cv != "" && color_ext != "" && color_int != "" && matricula != "" && km != "" && precio != "" && descripcion != "") {
+        if (foto != "" && modelo != "" && acabado != "" && ano != "" && cv != "" && color_ext != "" && color_int != "" && matricula != "" && km != "" && precio != "" && descripcion != "") {
             let coche = {
                 id: id,
                 username: username,
@@ -334,7 +407,8 @@ include_once('footer/header.php')
                 km: km,
                 precio: precio,
                 descripcion: descripcion,
-                puertas: puertas
+                puertas: puertas,
+                foto: foto
             }
 
             let cocheJson = JSON.stringify(coche);
@@ -352,6 +426,7 @@ include_once('footer/header.php')
                     switch (response.status) {
                         case 201:
                             alert("Insertado Con Exito");
+                            let insertFoto = document.getElementById('subir_coche_foto').className = "act"
                             break;
                         case 409:
                             alert("Vehiculo existente");

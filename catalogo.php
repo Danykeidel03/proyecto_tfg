@@ -131,10 +131,17 @@
         grid-template-rows: repeat(2, 1fr);
         grid-column-gap: 0px;
         grid-row-gap: 0px;
-        background-color: grey;
+        /* background-color: grey; */
         height: 200px;
         width: 1000px;
         margin-bottom: 50px;
+        border: 1px solid black;
+        -webkit-box-shadow: 6px 6px 15px 2px rgba(0, 0, 0, 0.64);
+        -moz-box-shadow: 6px 6px 15px 2px rgba(0, 0, 0, 0.64);
+        box-shadow: 6px 6px 15px 2px rgba(0, 0, 0, 0.64);
+        border-radius: 4px 4px 4px 4px;
+        -webkit-border-radius: 4px 4px 4px 4px;
+        -moz-border-radius: 4px 4px 4px 4px;
     }
 
     .div1_8 {
@@ -143,21 +150,21 @@
 
     .div2_8 {
         grid-area: 1 / 2 / 3 / 4;
-        border: 1px solid black;
+        /* border: 1px solid black; */
         width: 326px;
         margin-left: -142px;
     }
 
     .div3_8 {
         grid-area: 2 / 4 / 3 / 7;
-        border: 1px solid black;
+        /* border: 1px solid black; */
         margin-left: -100px;
         width: 670px;
     }
 
     .div4_8 {
         grid-area: 1 / 4 / 2 / 7;
-        border: 1px solid black;
+        /* border: 1px solid black; */
         margin-left: -100px;
         width: 670px;
     }
@@ -171,6 +178,50 @@
     #añadir_not {
         margin-left: -9px;
         margin-top: -40px;
+    }
+
+    #ano1 {
+        margin-left: 30px;
+        border: 0;
+        margin-top: 15px;
+        font-size: 30px;
+    }
+
+    #prec {
+        margin-left: 30px;
+        font-size: 25px;
+        color: #7f0000;
+        margin-top: -10px;
+    }
+
+    #dat {
+        margin-left: 30px;
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    #estado {
+        margin-left: 550px;
+        margin-top: -85px;
+        font-size: 15px;
+
+    }
+
+    #ver {
+        margin-left: 560px;
+        margin-top: -20px;
+    }
+
+    button {
+        background: none;
+        border: 0;
+        color: inherit;
+        /* cursor: default; */
+        font: inherit;
+        line-height: normal;
+        overflow: visible;
+        padding: 0;
+        cursor: pointer;
     }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -269,6 +320,8 @@
         let imputano = document.querySelector('#ano');
         let ano = imputano.value;
 
+        // ?marca=${marca}&precio=${precio}&cv=${cv}&km=${km}&ano=${ano}
+
         fetch(`APIS/coches_venta.php?marca=${marca}&precio=${precio}&cv=${cv}&km=${km}&ano=${ano}`, {
                 method: 'GET',
                 headers: {
@@ -288,6 +341,7 @@
             })
 
             .then(data => {
+                console.log(data);
                 let divCoches = document.getElementById('coches')
                 let str = "";
                 data.forEach(element => {
@@ -296,12 +350,33 @@
                     let modelo = element.modelo
                     let foto = element.foto
                     let km = element.km
+                    let ano = element.ano
+                    let precio = element.precio
+                    let color = element.color_ext
+                    let acabado = element.acabado
+                    let estado = element.estado
 
                     str += `
                     <div class="parent_8">
-                        <div class="div2_8"> ${foto}</div>
-                        <div class="div3_8"> ${foto}</div>
-                        <div class="div4_8"> ${foto}</div>
+                        <div class="div2_8"> <img src='fotoCoche/${foto}' width= 326px height= 200px></div>
+                        <div class="div4_8"> 
+                        <div id='ano1'>${ano} | ${marca}  ${modelo}</div><br>
+                        <div id='prec'>${precio}€</div>
+                        <div id='estado'>Estado: ${estado}</div>
+                        </div>
+                        <div class="div3_8">
+                        <div id='dat'>
+                            Acabado: ${acabado}<br>
+                            Kilometros: ${km} Km<br>
+                            Color: ${color}<br>
+                        </div>
+                        <div id='ver'>
+                            <form action=''>
+                                <div id='min'><button>Ver Mas >></button></div>
+                                <input id="id" name="id" type="hidden" value="${id}">
+                            </form>
+                        </div>
+                        </div>
                     </div> 
                 `
                 })
