@@ -1,7 +1,5 @@
 <?php
 
-// use phpGPX\phpGPX;
-
 require 'conexion.php';
 require '../vendor/autoload.php';
 $db = new Conexion();
@@ -34,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         //CONSULTA
 
-        $sql = "INSERT INTO `practicas`.`vehiculos_venta` (`marca`, `modelo`, `acabado`, `color_ext`, `color_int`, `precio`, `cv`, `combustible`, `puertas`, `km`, `ano`, `foto`, `id_vendedor`, `matricula`, `cambio`, `estado`) VALUES ('$marca', '$modelo', '$acabado', '$color_ext', '$color_int', '$precio', '$cv', '$combustible', '$puertas', '$km', '$ano', '$foto', '$id', '$matricula', '$cambio' , 'En Venta');        ";
+        $sql = "INSERT INTO `practicas`.`vehiculos_venta` (`marca`, `modelo`, `acabado`, `color_ext`, `color_int`, `precio`, `cv`, `combustible`, `puertas`, `km`, `ano`, `foto`, `id_vendedor`, `matricula`, `cambio`, `estado`, `descripcion`) VALUES ('$marca', '$modelo', '$acabado', '$color_ext', '$color_int', '$precio', '$cv', '$combustible', '$puertas', '$km', '$ano', '$foto', '$id', '$matricula', '$cambio' , 'En Venta', '$descripcion');";
 
         //CONSULTA PARA COMPROBAR QUE EXISTE
         $sql2 = "SELECT * FROM `practicas`.`vehiculos_venta` WHERE matricula = '$matricula'";

@@ -135,3 +135,20 @@ function obtenerMarcas(){
     }
     return $alumnos;
 }
+
+
+function obtenerCoche($id) {
+    $coche = false;
+    try {
+        $con = mysqli_connect("practicas.appsbecallgroup.com", "practicas", "Vareta69*", "practicas");
+        $sql = "SELECT * FROM vehiculos_venta WHERE id='$id'";
+        $coche = $con->query($sql)->fetch_assoc();
+        $usuario = $coche['id_vendedor'];
+        $sqlUser = "SELECT username FROM usuarios WHERE id_usuario='$usuario'";
+        $user = @$con->query($sqlUser)->fetch_assoc();
+        @$coche['username'] = $user['username'];
+    } catch(mysqli_sql_exception $e) {
+        $coche = false;
+    }
+    return $coche;
+}
