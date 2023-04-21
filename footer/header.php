@@ -176,19 +176,19 @@
     }
 
     #form2 #nombre_usu_edt {
-        margin-left: -24px;
+        margin-left: -3px;
     }
 
     #form2 #ciudad_edt {
-        margin-left: 78px;
+        margin-left: 99px;
     }
 
     #form2 #tfno_edt {
-        margin-left: 59px;
+        margin-left: 80px;
     }
 
     #form2 #correo_edt {
-        margin-left: 78px;
+        margin-left: 99px;
     }
 
     #form1 #correo {
