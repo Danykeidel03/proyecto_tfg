@@ -152,3 +152,22 @@ function obtenerCoche($id) {
     }
     return $coche;
 }
+
+function obtenerUsu($id) {
+    $coche = false;
+    try {
+        $con = mysqli_connect("practicas.appsbecallgroup.com", "practicas", "Vareta69*", "practicas");
+        $sql = "SELECT * FROM usuarios WHERE id_usuario='$id'";
+        $coche = $con->query($sql)->fetch_assoc();
+    } catch(mysqli_sql_exception $e) {
+        $coche = false;
+    }
+    return $coche;
+}
+
+function cambiarEst($id){
+    $con = mysqli_connect("practicas.appsbecallgroup.com", "practicas", "Vareta69*", "practicas");
+    $sql = "UPDATE `practicas`.`vehiculos_venta` SET `estado`='Vendido' WHERE  `id`=$id;";
+    $result = mysqli_query($con, $sql);
+    return $result;
+}

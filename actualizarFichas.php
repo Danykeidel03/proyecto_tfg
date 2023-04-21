@@ -137,6 +137,7 @@
             padding: 14px 16px;
         }
     }
+
     h1,
     #act,
     a,
@@ -149,87 +150,95 @@
         font-family: 'Open Sans', sans-serif;
         font-family: 'Ubuntu', sans-serif;
     }
-
 </style>
 <?php
 include_once('footer/header.php')
 ?>
 
 <body>
-    <div style="width:1400px;margin:auto;margin-top:20px;">
-        <div class="linea">&nbsp;</div>
+    <div id="funciona">
+        <div style="width:1400px;margin:auto;margin-top:20px;">
+            <div class="linea">&nbsp;</div>
 
-        <div class="leyenda">
-            <h1>Actualizar Fichas</h1>
+            <div class="leyenda">
+                <h1>Actualizar Fichas</h1>
+            </div>
+
+            <div class="linea">&nbsp;</div>
         </div>
+        <br><br><br><br><br>
+        <form action="#" method="post" enctype='multipart/form-data'>
+            <label>Nombre Coche:</label>
+            <input id="nombre_coche" class="nombre_coche" name="nombre_coche" type="text"><br><br>
+            <label>Foto Coche:</label>
+            <input id="foto_coche" class="foto_coche" name="foto_coche" type="file"><br><br>
+            <label>PDF Ficha tecnica:</label>
+            <input id="ficha_coche" class="ficha_coche" name="ficha_coche" type="file"><br><br>
+            <input value='AÑADIR' name='añadir_ficha' id='añadir_ficha' class='añadir_ficha' type='submit'>
+        </form> <br><br>
 
-        <div class="linea">&nbsp;</div>
-    </div>
-    <br><br><br><br><br>
-    <form action="#" method="post" enctype='multipart/form-data'>
-        <label>Nombre Coche:</label>
-        <input id="nombre_coche" class="nombre_coche" name="nombre_coche" type="text"><br><br>
-        <label>Foto Coche:</label>
-        <input id="foto_coche" class="foto_coche" name="foto_coche" type="file"><br><br>
-        <label>PDF Ficha tecnica:</label>
-        <input id="ficha_coche" class="ficha_coche" name="ficha_coche" type="file"><br><br>
-        <input value='AÑADIR' name='añadir_ficha' id='añadir_ficha' class='añadir_ficha' type='submit'>
-    </form> <br><br>
+        <?php
+        if (isset($_POST['añadir_ficha'])) {
+            $nombre = $_POST['nombre_coche'];
 
-    <?php
-    if (isset($_POST['añadir_ficha'])) {
-        $nombre = $_POST['nombre_coche'];
+            $n_arch = $_FILES['ficha_coche']['name'];
+            $archivo = $_FILES['ficha_coche']['tmp_name'];
 
-        $n_arch = $_FILES['ficha_coche']['name'];
-        $archivo = $_FILES['ficha_coche']['tmp_name'];
+            $ruta = "fichas/" . $n_arch;
+            $base_datos = "fichas/" . $n_arch;
 
-        $ruta = "fichas/" . $n_arch;
-        $base_datos = "fichas/" . $n_arch;
+            move_uploaded_file($archivo, $ruta);
 
-        move_uploaded_file($archivo, $ruta);
+            $n_arch1 = $_FILES['foto_coche']['name'];
+            $archivo1 = $_FILES['foto_coche']['tmp_name'];
 
-        $n_arch1 = $_FILES['foto_coche']['name'];
-        $archivo1 = $_FILES['foto_coche']['tmp_name'];
+            $ruta1 = "fotoFichas/" . $n_arch1;
+            $base_datos1 = "fotoFichas/" . $n_arch1;
 
-        $ruta1 = "fotoFichas/" . $n_arch1;
-        $base_datos1 = "fotoFichas/" . $n_arch1;
+            move_uploaded_file($archivo1, $ruta1);
 
-        move_uploaded_file($archivo1, $ruta1);
-
-        include_once('funciones.php');
-
-        guardarFicha($nombre, $base_datos1, $base_datos);
-    }
-    ?>
-    <form action="#" method="post">
-        <select id="nombres" value="nombres" name="nombres">
-            <?php
             include_once('funciones.php');
-            $f = mostrarFichas1();
-            foreach ($f as $fich) {
-                echo "<option value='$fich[nombre]'>$fich[nombre]</option>";
-            }
-            ?>
-        </select>
-        <input value='ELIMINAR' name='eliminar_ficha' id='eliminar_ficha' class='eliminar_ficha' type='submit'>
-    </form>
-    <?php
-    if (isset($_POST['eliminar_ficha'])) {
-        $nombres = $_POST['nombres'];
-        include_once('funciones.php');
-        $delted = deleteFicha($nombres);
-        if($delted){
-            echo "VEHICULO ELIMINADO";
-        }else{
-            echo "error";
-        }
-    }
-    ?>
-    <br><br><br>
-    <a href="fichas.php">VOLVER</a>
 
-    <footer id="footer"></footer>
+            guardarFicha($nombre, $base_datos1, $base_datos);
+        }
+        ?>
+        <form action="#" method="post">
+            <select id="nombres" value="nombres" name="nombres">
+                <?php
+                include_once('funciones.php');
+                $f = mostrarFichas1();
+                foreach ($f as $fich) {
+                    echo "<option value='$fich[nombre]'>$fich[nombre]</option>";
+                }
+                ?>
+            </select>
+            <input value='ELIMINAR' name='eliminar_ficha' id='eliminar_ficha' class='eliminar_ficha' type='submit'>
+        </form>
+        <?php
+        if (isset($_POST['eliminar_ficha'])) {
+            $nombres = $_POST['nombres'];
+            include_once('funciones.php');
+            $delted = deleteFicha($nombres);
+            if ($delted) {
+                echo "VEHICULO ELIMINADO";
+            } else {
+                echo "error";
+            }
+        }
+        ?>
+        <br><br><br>
+        <a href="fichas.php">VOLVER</a>
+
+        <footer id="footer"></footer>
+    </div>
 </body>
+<script>
+    let funciona = document.getElementById('funciona')
+    if(!localStorage.getItem('token')){
+        funciona.innerHTML = ''
+        window.location.href = ('http://localhost/DWES/tfg/index.php')
+    }
+</script>
 <script src="footer/añadirheadersfooters.js"></script>
 
 </html>

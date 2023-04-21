@@ -7,7 +7,7 @@ $db = new Conexion();
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     //HAGO LA CONSULTA
-    $sql = "SELECT * FROM vehiculos_venta WHERE 1 ";
+    $sql = "SELECT * FROM vehiculos_venta WHERE foto <> '' ";
 
     try {
 
@@ -47,6 +47,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 $ano = 100000000000000000000;
             };
             $sql .= "AND ano <= $ano ";
+        }
+
+        if (isset($_GET['id_vendedor'])) {
+            $ano = $_GET['id_vendedor'];
+            if($ano == ""){
+                $ano = 100000000000000000000;
+            };
+            $sql .= "AND id_vendedor = $ano ";
         }
         $result = $db->query($sql)->fetch_all(MYSQLI_ASSOC);
         header("HTTP/1.1 200 OK");

@@ -81,6 +81,9 @@ include_once('footer/header.php')
 ?>
 
 <body>
+<div id="funciona">
+
+
     <div style="width:1400px;margin:auto;margin-top:20px;">
         <div class="linea">&nbsp;</div>
 
@@ -165,9 +168,15 @@ include_once('footer/header.php')
     <a href="index.php">VOLVER</a>
 
 
-
+    </div>
     <footer id="footer"></footer>
 </body>
 <script src="footer/añadirheadersfooters.js"></script>
-
+<script>
+    let funciona = document.getElementById('funciona')
+    if(!localStorage.getItem('token')){
+        funciona.innerHTML = ''
+        window.location.href = ('http://localhost/DWES/tfg/index.php')
+    }
+</script>
 </html>

@@ -155,7 +155,7 @@
         grid-area: 1 / 2 / 3 / 4;
         /* border: 1px solid black; */
         width: 326px;
-        margin-left: -142px;
+        margin-left: -143px;
     }
 
     .div3_8 {
@@ -211,7 +211,7 @@
     }
 
     #ver {
-        margin-left: 560px;
+        margin-left: 400px;
         margin-top: -20px;
     }
 
@@ -226,12 +226,30 @@
         padding: 0;
         cursor: pointer;
     }
+
+    #marc_vend {
+        background: none;
+        border: 0;
+        color: inherit;
+        /* cursor: default; */
+        font: inherit;
+        line-height: normal;
+        overflow: visible;
+        padding: 0;
+        cursor: pointer;
+    }
+
+    #min {
+        margin-left: 170px;
+        margin-top: -37px;
+    }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@500&family=Fjalla+One&family=IBM+Plex+Mono:wght@500&family=Open+Sans&family=Ubuntu&display=swap" rel="stylesheet">
 
 <body>
+<div id="funciona">
     <?php
     include_once('footer/header.php')
     ?>
@@ -247,7 +265,6 @@
                             <input type="number" id="cv" name="cv" placeholder="Minimo De Caballos Coche">
                             <input type="number" id="km" name="km" placeholder="Maximo De Kilometros Coche">
                             <input type="number" id="ano" name="ano" placeholder="Hasta El Año">
-                            <!-- <input type="submit" id="submit_filtro" name="submit_filtro" value="Buscar"> -->
                         </div>
                     </form>
                 </div>
@@ -269,9 +286,26 @@
 
             </div>
         </div>
+        <?php
+        if (isset($_REQUEST['marc_vend'])) {
+            require_once('funciones.php');
+
+            $id = $_REQUEST['id_d'];
+            $edit = cambiarEst($id);
+        }
+        ?>
+    </div>
     </div>
     <footer id="footer"></footer>
+    
 </body>
+<script>
+    let funciona = document.getElementById('funciona')
+    if(!localStorage.getItem('token')){
+        funciona.innerHTML = ''
+        window.location.href = ('index.php')
+    }
+</script>
 <script src="footer/añadirheadersfooters.js"></script>
 <script>
     if (localStorage.getItem('token')) {
@@ -325,7 +359,9 @@
 
         // ?marca=${marca}&precio=${precio}&cv=${cv}&km=${km}&ano=${ano}
 
-        fetch(`APIS/coches_venta.php?marca=${marca}&precio=${precio}&cv=${cv}&km=${km}&ano=${ano}`, {
+        let id = localStorage.getItem('id')
+
+        fetch(`APIS/coches_venta.php?marca=${marca}&precio=${precio}&cv=${cv}&km=${km}&ano=${ano}&id_vendedor=${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -361,7 +397,7 @@
 
                     str += `
                     <div class="parent_8">
-                        <div class="div2_8"> <img src='fotoCoche/${foto}' width= 326px height= 200px></div>
+                        <div class="div2_8"> <img src='fotoCoche/${foto}' width= 327px height= 200px></div>
                         <div class="div4_8"> 
                         <div id='ano1'>${ano} | ${marca}  ${modelo}</div><br>
                         <div id='prec'>${precio}€</div>
@@ -374,6 +410,10 @@
                             Color: ${color}<br>
                         </div>
                         <div id='ver'>
+                            <form action='#'>
+                                <input id='marc_vend' class='marc_vend' name='marc_vend' type='submit' value='Vender'>
+                                <input id="id_d" name="id_d" type="hidden" value="${id}">
+                            </form>
                             <form action='detalleCoche.php'>
                                 <div id='min'><button>Ver Mas >></button></div>
                                 <input id="id" name="id" type="hidden" value="${id}">

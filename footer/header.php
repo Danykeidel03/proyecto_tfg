@@ -121,7 +121,7 @@
         margin-left: 230px;
     }
 
-    #form #pass_inicio{
+    #form #pass_inicio {
         margin-left: -1px;
     }
 
@@ -232,7 +232,8 @@
     h1,
     #act,
     a,
-    h4,label {
+    h4,
+    label {
         font-family: 'Bebas Neue', cursive;
         font-family: 'Cinzel', serif;
         font-family: 'Fjalla One', sans-serif;
@@ -379,6 +380,39 @@
         margin-top: 10%;
     }
 
+    .dropdown1-li {
+        position: relative;
+        font-size: 15px;
+        list-style: none;
+        font-family: 'Cinzel', serif;
+    }
+
+    .dropdown1-li:hover .dropdown1 {
+        display: flex;
+        opacity: 1;
+    }
+
+    .dropdown1 {
+        margin: 0;
+        padding: 0;
+        width: 170px;
+        height: 80px;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        opacity: 0;
+        background: white;
+        display: none;
+
+    }
+
+    .dropdown1 li {
+        font-size: 20px;
+        list-style: none;
+        font-family: 'Cinzel', serif;
+        margin-top: 10%;
+    }
+
     #crear {
         margin-top: -10px;
         font-size: 19px;
@@ -455,7 +489,7 @@
         cursor: pointer;
         outline: inherit;
         font-size: 17px;
-        margin-top: 10px;
+        margin-top: 3px;
         margin-left: 15px;
         color: #7f0000;
         height: 10px;
@@ -489,11 +523,10 @@
         cursor: pointer;
         outline: inherit;
         font-size: 17px;
-        /* margin-top: 20px;
-        margin-left: -64px; */
-        margin-top: 27px;
+        margin-top: 28px;
         margin-left: -64px;
         color: #7f0000;
+        height: 15px;
 
     }
 
@@ -506,6 +539,20 @@
         font-family: 'Open Sans', sans-serif;
         font-family: 'Ubuntu', sans-serif;
     }
+
+    #btnCo {
+        background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
+        font-size: 17px;
+        margin-top: 48px;
+        margin-left: -136px;
+        color: #7f0000;
+    }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -513,7 +560,7 @@
 <header id="con_token">
     <div class="parent_4">
         <div class="div1_4">
-        <img src="logo.png" width="100px" height="80px">
+            <img src="logo.png" width="100px" height="80px">
         </div>
         <div class="div2_4">
             <a href="index.php" id="inicio">INICIO</a>
@@ -527,9 +574,9 @@
         <div class="div5_4">
             <nav>
                 <div class="main-links">
-                    <div class="dropdown-li">
+                    <div class="dropdown-li" id="ve">
                         <p>SESION</p>
-                        <div class="dropdown">
+                        <div class="dropdown" id="vent">
                             <button id="btnModal">INICIAR</button>
                             <br>
                             <button id="btnMod">REGISTRARSE</button>
@@ -601,13 +648,26 @@
     </div>
 </body>
 <script>
+    function redireccionar() {
+        let id = localStorage.getItem('id')
+        window.location.href = `misCoches.php?id=${id}`;
+    }
+</script>
+<script>
     if (localStorage.getItem('token')) {
 
 
-        boton1 = document.querySelector('.dropdown')
+        boton1 = document.querySelector('#vent')
+        boton2 = document.querySelector('#ve')
+        boton1.classList.remove('dropdown');
+        boton1.classList.add('dropdown1');
+        boton2.classList.remove('dropdown-li');
+        boton2.classList.add('dropdown1-li');
         boton1.innerHTML = (`<button id="btnModal1">EDITAR</button>
                                 <br>
-                                <button id="btnCerrar">CERRAR SESION</button>`)
+                                <button id="btnCerrar">CERRAR SESION</button>
+                                <br>
+                                <button id="btnCo" onclick="redireccionar()">ANUNCIOS</button>`)
     }
     let btnCerrar = document.getElementById('btnCerrar')
     btnCerrar.addEventListener('click', cerrarSesion)
@@ -618,8 +678,7 @@
         localStorage.removeItem('id')
         localStorage.removeItem('rol')
         localStorage.removeItem('username')
-        window.location.href = ('#')
-        window.location.reload()
+        window.location.href = ('http://localhost/DWES/tfg/index.php')
     }
 </script>
 <script>

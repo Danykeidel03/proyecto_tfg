@@ -78,7 +78,8 @@
     .div2_10 {
         grid-area: 1 / 4 / 6 / 5;
         border: 1px black solid;
-        height: 1400px;
+        height: 450px;
+        /* text-align: center; */
     }
 
     #nm {
@@ -105,7 +106,7 @@
         font-family: 'Ubuntu', sans-serif;
     }
 
-    #car{
+    #car {
         margin-left: 40px;
         margin-top: 20px;
         font-size: 25px;
@@ -116,10 +117,30 @@
         font-family: 'Open Sans', sans-serif;
         font-family: 'Ubuntu', sans-serif;
     }
-    #d{
+
+    #d {
         height: 400px;
         width: 900px;
         word-wrap: break-word;
+    }
+
+    td {
+        padding: 10px;
+    }
+
+    #de {
+        height: 300px;
+        /* altura fija del div */
+        overflow-y: auto;
+        /* agregar barras de desplazamiento */
+        border: 1px black solid;
+        margin-top: 10px;
+        margin-left: 4px;
+    }
+
+    #usu{
+        margin-left: 20px;
+        font-size: 20px;
     }
 </style>
 <?php
@@ -154,8 +175,8 @@ include_once('footer/header.php')
                     $precio = $coche['precio'] . "€";
                     $color = $coche['color_ext'];
                     $color_int = $coche['color_int'];
-                    $cv = $coche['cv']."cv";
-                    $km = $coche['km']."km";
+                    $cv = $coche['cv'] . "cv";
+                    $km = $coche['km'] . "km";
                     $matricula = $coche['matricula'];
                     $cambio = $coche['cambio'];
                     $puertas = $coche['puertas'];
@@ -167,24 +188,74 @@ include_once('footer/header.php')
                     echo "<div id='nm'>$marca  &nbsp;||&nbsp;  $modelo</div>";
                     echo "<div id='pr'>Valor de $precio</div>";
                     echo "<div id='car'>
-                    <h3>Caracteristicas:</h3>  
-                    Color: $color 
-                    Color del Interior: $color_int 
-                    Caballos: $cv <br><br>
-                    Kilometros: $km 
-                    Año: $ano 
-                    Matricula: $matricula <br><br>
-                    Cambio: $cambio 
-                    Numero de Puertas: $puertas 
-                    Combustible: $combustible <br><br>
+                    <h3>Caracteristicas:</h3> 
+                    <table class='greyGridTable'>
+                    <tbody>
+                    <tr>
+                    <td>Color: $color</td>
+                    <td>Color del Interior: $color_int</td>
+                    <td>Caballos: $cv</td>
+                    </tr>
+                    <tr>
+                    <td>Kilometros: $km</td>
+                    <td>Año: $ano</td>
+                    <td>Matricula: $matricula</td>
+                    </tr>
+                    <tr>
+                    <td>Cambio: $cambio</td>
+                    <td>Numero de Puertas: $puertas</td>
+                    <td>Combustible: $combustible</td>
+                    </tr>
+                    </tbody>
+                    </table> 
+                    <br>
                     <div id='d'>
-                    Descripcion: $descripcion 
+                    Descripcion: <div id='de'>$descripcion</div> 
                     </div>
                     </div>";
                 }
                 ?>
             </div>
-            <div class="div2_10"> </div>
+            <div class="div2_10">
+                <center>
+                    <h1>Propietario</h1>
+                </center>
+                <?php
+                if (isset($_GET['id'])) {
+                    $id = $_GET['id'];
+
+                    require_once('funciones.php');
+
+                    $coche = obtenerCoche($id);
+
+                    $id_usu = $coche['id_vendedor'];
+
+                    $usuario = obtenerUsu($id_usu);
+
+                    $nombre = $usuario['fullname'];
+                    $username = $usuario['username'];
+                    $email = $usuario['email'];
+                    $city = $usuario['city'];
+                    $dni = $usuario['dni'];
+                    $tfno = $usuario['tfno'];
+
+                    echo "
+                    <div id='usu'>
+                        Usuario: <b>$username</b><br><br>
+                        Nombre: <b>$nombre</b><br><br>
+                        Ciudad: <b>$city</b><br><br>
+                        DNI: <b>$dni</b><br><br>
+                    </div>
+                        <hr>
+                    <div id='usu'>
+                        <p>Contacto</p>
+                        Mail: <b>$email</b><br><br>
+                        Telefono: <b>$tfno</b><br><br>
+                    </div>
+                    ";
+                }
+                ?>
+            </div>
         </div>
 
         <?php
@@ -197,8 +268,6 @@ include_once('footer/header.php')
         }
         ?>
     </div>
-
-    <br><br><br><br>
     <footer id="footer"></footer>
 </body>
 <script src="footer/añadirheadersfooters.js"></script>

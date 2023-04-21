@@ -240,6 +240,8 @@ include_once('footer/header.php')
 
         <div class="linea">&nbsp;</div>
     </div>
+    <div id="funciona">
+
     <div id="anuncio">
         <?php
         require_once('funciones.php');
@@ -319,9 +321,16 @@ include_once('footer/header.php')
 
     <br><br><br><br><br>
     <footer id="footer"></footer>
+    </div>
 </body>
 <script src="footer/añadirheadersfooters.js"></script>
-
+<script>
+    let funciona = document.getElementById('funciona')
+    if(!localStorage.getItem('token')){
+        funciona.innerHTML = ''
+        window.location.href = ('http://localhost/DWES/tfg/index.php')
+    }
+</script>
 <script>
     let insert = document.getElementById('subir_coche')
     insert.addEventListener('click', añadirCoche)
