@@ -1,4 +1,4 @@
-const footer = "http://localhost/DWES/tfg/footer/footer.php"
+const footer = "footer/footer.php"
 
 añadirFoot(footer);
 

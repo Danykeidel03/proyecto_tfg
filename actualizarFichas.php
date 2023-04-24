@@ -107,9 +107,9 @@
         cursor: pointer;
         display: flex;
         font-family: Inter, sans-serif;
-        font-size: 10px;
+        font-size: 16px;
         justify-content: center;
-        line-height: 28px;
+        line-height: 5px;
         max-width: 100%;
         padding: 14px 22px;
         text-decoration: none;
@@ -118,6 +118,7 @@
         -webkit-user-select: none;
         touch-action: manipulation;
         width: 40px;
+        height: 40px;
     }
 
     #añadir_ficha:active,

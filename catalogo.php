@@ -274,7 +274,11 @@
 </body>
 <script src="footer/añadirheadersfooters.js"></script>
 <script>
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('token') && localStorage.getItem('rol') == "admin") {
+        let crearRuta = document.getElementById('añadir_not');
+        crearRuta.innerHTML = `<a href="añadirVehiculo.php" id="act">Subir Anuncio</a><br><br><a href="verVehiculo.php" id="act">Ver Anuncios</a>`;
+    }
+    else if(localStorage.getItem('token')){
         let crearRuta = document.getElementById('añadir_not');
         crearRuta.innerHTML = `<a href="añadirVehiculo.php" id="act">Subir Anuncio</a>`;
     }

@@ -101,6 +101,42 @@ function mostrarFichas1()
     return $alumnos;
 }
 
+function mostrarAnuncios()
+{
+    $alumnos = false;
+    try {
+        $con = mysqli_connect("practicas.appsbecallgroup.com", "practicas", "Vareta69*", "practicas");
+        $sql = "SELECT * FROM vehiculos_venta ";
+        $result = mysqli_query($con, $sql);
+        mysqli_close($con);
+        if (mysqli_num_rows($result) > 0) {
+            $alumnos = array();
+            while ($reg = mysqli_fetch_assoc($result)) {
+                $alumnos[] = $reg;
+            }
+        }
+    } catch (mysqli_sql_exception $e) {
+        $alumnos = false;
+    }
+    return $alumnos;
+}
+
+function deleteAnuncio($id){
+    $eliminado = false;
+    try {
+        $con = mysqli_connect("practicas.appsbecallgroup.com", "practicas", "Vareta69*", "practicas");
+        $sql = "DELETE FROM vehiculos_venta WHERE  `id`='$id';";
+        $result = mysqli_query($con, $sql);
+        if($result && mysqli_affected_rows($con)){
+            $eliminado = true;
+        }
+        mysqli_close($con);
+    } catch (mysqli_sql_exception $e) {
+        $eliminado = false;
+    }
+    return $eliminado;
+}
+
 function deleteFicha($nombre){
     $eliminado = false;
     try {

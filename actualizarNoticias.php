@@ -165,6 +165,7 @@ include_once('footer/header.php')
         echo "<h1>NINGUNA NOTICIA SELECCIONADA</h1>";
     }
     ?>
+    <br><br><br>
     <a href="index.php">VOLVER</a>
 
 
