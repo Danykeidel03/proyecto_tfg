@@ -235,7 +235,7 @@ include_once('footer/header.php')
 </body>
 <script>
     let funciona = document.getElementById('funciona')
-    if(!localStorage.getItem('token')){
+    if(!localStorage.getItem('token') || localStorage.getItem('rol') == "usuario"){
         funciona.innerHTML = ''
         window.location.href = ('http://localhost/DWES/tfg/index.php')
     }
