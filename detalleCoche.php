@@ -138,9 +138,31 @@
         margin-left: 4px;
     }
 
-    #usu{
+    #usu {
         margin-left: 20px;
         font-size: 20px;
+    }
+
+    button {
+        margin-top: -10px;
+        background: none;
+        border: 0;
+        color: inherit;
+        /* cursor: default; */
+        font: inherit;
+        line-height: normal;
+        overflow: visible;
+        padding: 0;
+        -webkit-user-select: none;
+        /* for button */
+        -webkit-appearance: button;
+        /* for input */
+        -moz-user-select: none;
+        -ms-user-select: none;
+    }
+
+    button:hover{
+        cursor: pointer;
     }
 </style>
 <?php
@@ -250,7 +272,12 @@ include_once('footer/header.php')
                     <div id='usu'>
                         <p>Contacto</p>
                         Mail: <b>$email</b><br><br>
-                        Telefono: <b>$tfno</b><br><br>
+                        Telefono: <b>$tfno</b><br>
+                        <form action='chat.php'><br>
+                        <div id='min'><button>Contacta</button></div>
+                        <input id='id_1' name='id_1' type='hidden' value='$id_usu'>
+                        <input type='hidden' name='miCampoOculto' id='miCampoOculto'>
+                        </form>
                     </div>
                     ";
                 }
@@ -271,5 +298,9 @@ include_once('footer/header.php')
     <footer id="footer"></footer>
 </body>
 <script src="footer/añadirheadersfooters.js"></script>
+<script>
+    let i = localStorage.getItem('id')
+    document.getElementById('miCampoOculto').value = i;
+</script>
 
 </html>

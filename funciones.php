@@ -54,7 +54,8 @@ function guardarFicha($nombre, $foto, $ficha)
     return $result;
 }
 
-function eliminarFicha($nombre){
+function eliminarFicha($nombre)
+{
     $con = mysqli_connect("practicas.appsbecallgroup.com", "practicas", "Vareta69*", "practicas");
     $sql = "DELETE FROM `fichas_tecnicas` WHERE  `nombre`=$nombre;";
     $result = mysqli_query($con, $sql);
@@ -121,13 +122,14 @@ function mostrarAnuncios()
     return $alumnos;
 }
 
-function deleteAnuncio($id){
+function deleteAnuncio($id)
+{
     $eliminado = false;
     try {
         $con = mysqli_connect("practicas.appsbecallgroup.com", "practicas", "Vareta69*", "practicas");
         $sql = "DELETE FROM vehiculos_venta WHERE  `id`='$id';";
         $result = mysqli_query($con, $sql);
-        if($result && mysqli_affected_rows($con)){
+        if ($result && mysqli_affected_rows($con)) {
             $eliminado = true;
         }
         mysqli_close($con);
@@ -137,13 +139,14 @@ function deleteAnuncio($id){
     return $eliminado;
 }
 
-function deleteFicha($nombre){
+function deleteFicha($nombre)
+{
     $eliminado = false;
     try {
         $con = mysqli_connect("practicas.appsbecallgroup.com", "practicas", "Vareta69*", "practicas");
         $sql = "DELETE FROM `practicas`.`fichas_tecnicas` WHERE  `nombre`='$nombre';";
         $result = mysqli_query($con, $sql);
-        if($result && mysqli_affected_rows($con)){
+        if ($result && mysqli_affected_rows($con)) {
             $eliminado = true;
         }
         mysqli_close($con);
@@ -153,7 +156,8 @@ function deleteFicha($nombre){
     return $eliminado;
 }
 
-function obtenerMarcas(){
+function obtenerMarcas()
+{
     $alumnos = false;
     try {
         $con = mysqli_connect("practicas.appsbecallgroup.com", "practicas", "Vareta69*", "practicas");
@@ -173,7 +177,8 @@ function obtenerMarcas(){
 }
 
 
-function obtenerCoche($id) {
+function obtenerCoche($id)
+{
     $coche = false;
     try {
         $con = mysqli_connect("practicas.appsbecallgroup.com", "practicas", "Vareta69*", "practicas");
@@ -183,27 +188,59 @@ function obtenerCoche($id) {
         $sqlUser = "SELECT username FROM usuarios WHERE id_usuario='$usuario'";
         $user = @$con->query($sqlUser)->fetch_assoc();
         @$coche['username'] = $user['username'];
-    } catch(mysqli_sql_exception $e) {
+    } catch (mysqli_sql_exception $e) {
         $coche = false;
     }
     return $coche;
 }
 
-function obtenerUsu($id) {
+function obtenerUsu($id)
+{
     $coche = false;
     try {
         $con = mysqli_connect("practicas.appsbecallgroup.com", "practicas", "Vareta69*", "practicas");
         $sql = "SELECT * FROM usuarios WHERE id_usuario='$id'";
         $coche = $con->query($sql)->fetch_assoc();
-    } catch(mysqli_sql_exception $e) {
+    } catch (mysqli_sql_exception $e) {
         $coche = false;
     }
     return $coche;
 }
 
-function cambiarEst($id){
+function cambiarEst($id)
+{
     $con = mysqli_connect("practicas.appsbecallgroup.com", "practicas", "Vareta69*", "practicas");
     $sql = "UPDATE `practicas`.`vehiculos_venta` SET `estado`='Vendido' WHERE  `id`=$id;";
     $result = mysqli_query($con, $sql);
     return $result;
+}
+
+function evniarMsg($msg, $idVend, $idComp)
+{
+    if ($msg != "") {
+        $con = mysqli_connect("practicas.appsbecallgroup.com", "practicas", "Vareta69*", "practicas");
+        $sql = "INSERT INTO `practicas`.`chat` (`id_persona`, `id_vendedor`, `mensaje`) VALUES ('$idComp', '$idVend', '$msg');";
+        $result = mysqli_query($con, $sql);
+        return $result;
+    }
+}
+
+function verChats($id_vendedor)
+{
+    $cht = false;
+    try {
+        $con = mysqli_connect("practicas.appsbecallgroup.com", "practicas", "Vareta69*", "practicas");
+        $sql = "SELECT distinct id_persona FROM chat WHERE id_vendedor='$id_vendedor'";
+        $result = mysqli_query($con, $sql);
+        mysqli_close($con);
+        if (mysqli_num_rows($result) > 0) {
+            $cht = array();
+            while ($reg = mysqli_fetch_assoc($result)) {
+                $cht[] = $reg;
+            }
+        }
+    } catch (mysqli_sql_exception $e) {
+        $cht = false;
+    }
+    return $cht;
 }

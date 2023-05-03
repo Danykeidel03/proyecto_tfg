@@ -243,65 +243,106 @@
         margin-left: 170px;
         margin-top: -37px;
     }
+
+    #chat1 {
+        border: 1px black solid;
+        height: 300px;
+        width: 300px;
+
+    }
+
+    #m {
+        width: 100%;
+        height: 30px;
+        border-bottom: 1px solid black;
+    }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@500&family=Fjalla+One&family=IBM+Plex+Mono:wght@500&family=Open+Sans&family=Ubuntu&display=swap" rel="stylesheet">
 
 <body>
-<div id="funciona">
-    <?php
-    include_once('footer/header.php')
-    ?>
-    <div class="parent_6">
-        <div class="div1_6">
-            <div id="inside_filtros">
-                <h1>FILTROS</h1>
-                <div>
-                    <form id="f">
-                        <div id="tx">
-                            <input type="text" id="marca" name="marca" placeholder="Marca Coche">
-                            <input type="number" id="precio" name="precio" placeholder="Precio Maximo Coche">
-                            <input type="number" id="cv" name="cv" placeholder="Minimo De Caballos Coche">
-                            <input type="number" id="km" name="km" placeholder="Maximo De Kilometros Coche">
-                            <input type="number" id="ano" name="ano" placeholder="Hasta El Año">
-                        </div>
-                    </form>
-                </div>
-                <div id="añadir_not"></div>
-            </div>
-
-        </div>
-        <div class="div2_6">
-            <div style="width:1100px;margin-left:110px;">
-                <div class="linea">&nbsp;</div>
-
-                <div class="leyenda">
-                    <h1>Coches A La Venta</h1>
-                </div>
-
-                <div class="linea">&nbsp;</div>
-            </div>
-            <div id="coches">
-
-            </div>
-        </div>
+    <div id="funciona">
         <?php
-        if (isset($_REQUEST['marc_vend'])) {
-            require_once('funciones.php');
-
-            $id = $_REQUEST['id_d'];
-            $edit = cambiarEst($id);
-        }
+        include_once('footer/header.php')
         ?>
-    </div>
+        <div class="parent_6">
+            <div class="div1_6">
+                <div id="inside_filtros">
+                    <h1>FILTROS</h1>
+                    <div>
+                        <form id="f">
+                            <div id="tx">
+                                <input type="text" id="marca" name="marca" placeholder="Marca Coche">
+                                <input type="number" id="precio" name="precio" placeholder="Precio Maximo Coche">
+                                <input type="number" id="cv" name="cv" placeholder="Minimo De Caballos Coche">
+                                <input type="number" id="km" name="km" placeholder="Maximo De Kilometros Coche">
+                                <input type="number" id="ano" name="ano" placeholder="Hasta El Año">
+                            </div>
+                        </form>
+                    </div>
+                    <div id="añadir_not"></div><br><br><br>
+                    <div id="chat1">
+                        <?php
+                        if (isset($_REQUEST['id'])) {
+                            $id_chat = $_REQUEST['id'];
+
+                            require('funciones.php');
+
+                            $chats = verChats($id_chat);
+
+                            foreach ($chats as $ms) {
+                                foreach ($ms as $m) {
+                                    $user = obtenerUsu($m);
+                                    $nombre = ($user['username']);
+                                    $id = ($user['id_usuario']);
+                                    echo "
+                                    <div id='m'>
+                                    Mensaje de : $nombre
+                                    <form action='chat1.php'>
+                                    <div id='min'><button>Chat</button></div>
+                                    <input id='id_1' name='id_1' type='hidden' value='$id'>
+                                    <input type='hidden' name='miCampoOculto' id='miCampoOculto' value='$id'>
+                                    </form>
+                                    </div>";
+                                }
+                            }
+                        }
+                        ?>
+                    </div>
+                </div>
+
+            </div>
+            <div class="div2_6">
+                <div style="width:1100px;margin-left:110px;">
+                    <div class="linea">&nbsp;</div>
+
+                    <div class="leyenda">
+                        <h1>Coches A La Venta</h1>
+                    </div>
+
+                    <div class="linea">&nbsp;</div>
+                </div>
+                <div id="coches">
+
+                </div>
+            </div>
+            <?php
+            if (isset($_REQUEST['marc_vend'])) {
+                require_once('funciones.php');
+
+                $id = $_REQUEST['id_d'];
+                $edit = cambiarEst($id);
+            }
+            ?>
+        </div>
     </div>
     <footer id="footer"></footer>
-    
+
 </body>
 <script>
     let funciona = document.getElementById('funciona')
-    if(!localStorage.getItem('token')){
+    if (!localStorage.getItem('token')) {
         funciona.innerHTML = ''
         window.location.href = ('index.php')
     }
