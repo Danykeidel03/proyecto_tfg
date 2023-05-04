@@ -87,15 +87,13 @@
 
     .div1_11 {
         grid-area: 1 / 1 / 6 / 2;
-        border: 1px black solid;
         height: 500px;
     }
 
     .div2_11 {
         grid-area: 1 / 2 / 6 / 3;
         height: 500px;
-        border: 1px black solid;
-
+        text-align: right;
     }
 
     #msg_2 {
@@ -190,7 +188,7 @@ $idVend = $_REQUEST['id_1'];
                     let div1 = document.querySelector('.div1_11')
                     data.forEach(element => {
                         msg = element.mensaje
-                        str += `${msg}<br>`;
+                        str += `${msg}<br><br>`;
                     })
                     div1.innerHTML = str
                 })
@@ -217,7 +215,7 @@ $idVend = $_REQUEST['id_1'];
                     let div2 = document.querySelector('.div2_11')
                     data.forEach(element => {
                         msg = element.mensaje
-                        str += `${msg}<br>`;
+                        str += `${msg}<br><br>`;
                     })
                     div2.innerHTML = str
                 })

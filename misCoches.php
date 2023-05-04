@@ -240,21 +240,31 @@
     }
 
     #min {
-        margin-left: 170px;
-        margin-top: -37px;
+        margin-left: 240px;
+        margin-top: -53px;
+    }
+
+    #min1 {
+        margin-left: 180px;
+        margin-top: -38px;
     }
 
     #chat1 {
-        border: 1px black solid;
+        /* border: 1px black solid; */
         height: 300px;
         width: 300px;
+        overflow-y: auto;
+    }
 
+    #chat1 p{
+        color: black;
     }
 
     #m {
         width: 100%;
         height: 30px;
         border-bottom: 1px solid black;
+        margin-top: 10px;
     }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -293,16 +303,17 @@
 
                             foreach ($chats as $ms) {
                                 foreach ($ms as $m) {
+                                    echo $m;
                                     $user = obtenerUsu($m);
                                     $nombre = ($user['username']);
                                     $id = ($user['id_usuario']);
                                     echo "
                                     <div id='m'>
-                                    Mensaje de : $nombre
+                                    <p>Mensaje de : $nombre</p>
                                     <form action='chat1.php'>
-                                    <div id='min'><button>Chat</button></div>
+                                    <div id='min'><button><p>Chat</p></button></div>
                                     <input id='id_1' name='id_1' type='hidden' value='$id'>
-                                    <input type='hidden' name='miCampoOculto' id='miCampoOculto' value='$id'>
+                                    <input type='hidden' name='miCampoOculto' id='miCampoOculto'>
                                     </form>
                                     </div>";
                                 }
@@ -340,6 +351,12 @@
     <footer id="footer"></footer>
 
 </body>
+<script>
+    let i = localStorage.getItem('id')
+    console.log(i);
+    document.getElementById('miCampoOculto').value = i;
+    console.log(document.getElementById('miCampoOculto').value);
+</script>
 <script>
     let funciona = document.getElementById('funciona')
     if (!localStorage.getItem('token')) {
@@ -451,12 +468,12 @@
                             Color: ${color}<br>
                         </div>
                         <div id='ver'>
-                            <form action='#'>
+                            <form action='index.php'>
                                 <input id='marc_vend' class='marc_vend' name='marc_vend' type='submit' value='Vender'>
                                 <input id="id_d" name="id_d" type="hidden" value="${id}">
                             </form>
                             <form action='detalleCoche.php'>
-                                <div id='min'><button>Ver Mas >></button></div>
+                                <div id='min1'><button>Ver Mas >></button></div>
                                 <input id="id" name="id" type="hidden" value="${id}">
                             </form>
                         </div>

@@ -87,15 +87,13 @@
 
     .div1_11 {
         grid-area: 1 / 1 / 6 / 2;
-        border: 1px black solid;
         height: 500px;
     }
 
     .div2_11 {
         grid-area: 1 / 2 / 6 / 3;
         height: 500px;
-        border: 1px black solid;
-
+        text-align: right;
     }
 
     #msg_2 {
@@ -111,7 +109,6 @@
 </style>
 <?php
 include_once('footer/header.php');
-$idComp = $_REQUEST['miCampoOculto'];
 $idVend = $_REQUEST['id_1'];
 ?>
 
@@ -130,7 +127,7 @@ $idVend = $_REQUEST['id_1'];
                 <?php
                 echo "
                     <input id='id_1' name='id_1' type='hidden' value='$idVend'>
-                    <input type='hidden' name='miCampoOculto' id='miCampoOculto' value='$idComp'>
+                    <input type='hidden' name='miCampoOculto' id='miCampoOculto'>
                     "
                 ?>
                 <button type="submit" name='env_msg' id='env_msg' class='env_msg' style="background-color: #4CAF50; border: none; color: white; border-radius: 5px; padding: 5px 10px;">Enviar</button>
@@ -145,7 +142,7 @@ $idVend = $_REQUEST['id_1'];
 
             include_once('funciones.php');
 
-            evniarMsg($msg, $idComp1, $idVend1);
+            evniarMsg($msg,  $idVend1, $idComp1);
         }
         ?>
 
@@ -158,7 +155,13 @@ $idVend = $_REQUEST['id_1'];
 <script src="footer/añadirheadersfooters.js"></script>
 <script src="misCoches.php"></script>
 <script>
-    let id1 = document.getElementById('miCampoOculto').value;
+    let i = localStorage.getItem('id')
+    console.log(i);
+    document.getElementById('miCampoOculto').value = i;
+    console.log(document.getElementById('miCampoOculto').value);
+</script>
+<script>
+    let id1 = document.getElementById('id_1').value;
     var id = localStorage.getItem('id');
     console.log(id);
     console.log(id1);
@@ -190,7 +193,7 @@ $idVend = $_REQUEST['id_1'];
                     let div1 = document.querySelector('.div1_11')
                     data.forEach(element => {
                         msg = element.mensaje
-                        str += `${msg}<br>`;
+                        str += `${msg}<br><br>`;
                     })
                     div1.innerHTML = str
                 })
@@ -217,7 +220,7 @@ $idVend = $_REQUEST['id_1'];
                     let div2 = document.querySelector('.div2_11')
                     data.forEach(element => {
                         msg = element.mensaje
-                        str += `${msg}<br>`;
+                        str += `${msg}<br><br>`;
                     })
                     div2.innerHTML = str
                 })

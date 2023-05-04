@@ -198,6 +198,14 @@
     <?php
     include_once('footer/header.php')
     ?>
+    <?php
+            if (isset($_REQUEST['marc_vend'])) {
+                require_once('funciones.php');
+
+                $id = $_REQUEST['id_d'];
+                $edit = cambiarEst($id);
+            }
+            ?>
     <div id="general">
 
         <img src="img/inicio1.jpg" width="100%" height="700px">
