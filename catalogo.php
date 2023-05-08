@@ -138,7 +138,7 @@
         height: 200px;
         width: 1000px;
         margin-bottom: 50px;
-        border: 1px solid black;
+        /* border: 1px solid black; */
         -webkit-box-shadow: 6px 6px 15px 2px rgba(0, 0, 0, 0.64);
         -moz-box-shadow: 6px 6px 15px 2px rgba(0, 0, 0, 0.64);
         box-shadow: 6px 6px 15px 2px rgba(0, 0, 0, 0.64);
@@ -155,7 +155,7 @@
         grid-area: 1 / 2 / 3 / 4;
         /* border: 1px solid black; */
         width: 326px;
-        margin-left: -142px;
+        margin-left: -143px;
     }
 
     .div3_8 {

@@ -256,7 +256,7 @@
         overflow-y: auto;
     }
 
-    #chat1 p{
+    #chat1 p {
         color: black;
     }
 
@@ -301,21 +301,24 @@
 
                             $chats = verChats($id_chat);
 
-                            foreach ($chats as $ms) {
-                                foreach ($ms as $m) {
-                                    echo $m;
-                                    $user = obtenerUsu($m);
-                                    $nombre = ($user['username']);
-                                    $id = ($user['id_usuario']);
-                                    echo "
-                                    <div id='m'>
-                                    <p>Mensaje de : $nombre</p>
-                                    <form action='chat1.php'>
-                                    <div id='min'><button><p>Chat</p></button></div>
-                                    <input id='id_1' name='id_1' type='hidden' value='$id'>
-                                    <input type='hidden' name='miCampoOculto' id='miCampoOculto'>
-                                    </form>
-                                    </div>";
+                            if ($chats == "") {
+                                echo "<p>Sin Chats</p>";
+                            } else {
+                                foreach ($chats as $ms) {
+                                    foreach ($ms as $m) {
+                                        $user = obtenerUsu($m);
+                                        $nombre = ($user['username']);
+                                        $id = ($user['id_usuario']);
+                                        echo "
+                                        <div id='m'>
+                                        <p>Mensaje de : $nombre</p>
+                                        <form action='chat1.php'>
+                                        <div id='min'><button><p>Chat</p></button></div>
+                                        <input id='id_1' name='id_1' type='hidden' value='$id'>
+                                        <input type='hidden' name='miCampoOculto' id='miCampoOculto'>
+                                        </form>
+                                        </div>";
+                                    }
                                 }
                             }
                         }
