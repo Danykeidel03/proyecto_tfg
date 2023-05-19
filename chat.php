@@ -106,6 +106,7 @@
         /* width: 300px; */
 
     }
+
 </style>
 <?php
 include_once('footer/header.php');
@@ -163,7 +164,7 @@ $idVend = $_REQUEST['id_1'];
 
     if (id == id1) {
         funciona.innerHTML = ''
-        window.location.href = ('http://localhost/DWES/tfg/index.php')
+        window.location.href = ('index.php')
     } else {
         setInterval(() => {
             fetch(`APIS/mensajes.php?idVendedor=${id1}&idComprador=${id}`, {
@@ -226,7 +227,7 @@ $idVend = $_REQUEST['id_1'];
     let funciona = document.getElementById('funciona')
     if (!localStorage.getItem('token')) {
         funciona.innerHTML = ''
-        window.location.href = ('http://localhost/DWES/tfg/index.php')
+        window.location.href = ('index.php')
     }
 </script>
 

@@ -242,91 +242,91 @@ include_once('footer/header.php')
     </div>
     <div id="funciona">
 
-    <div id="anuncio">
-        <?php
-        require_once('funciones.php');
-        $marcas = obtenerMarcas();
-        ?>
-        <form action="#" method="post" enctype='multipart/form-data'>
-            <label id="foto1">Foto Del Vehiculo</label>
-            <input name='foto' id='foto' type='file'><br>
-            <label id="marca1">Marca</label>
-            <select id="marca" name="marca">
-                <?php
-                foreach ($marcas as $marca) {
-                    echo "<option value='$marca[Nombre]'>$marca[Nombre]</option>";
-                }
-                ?>
-            </select><br>
-            <label id="modelo1">Modelo</label>
-            <input type="text" class="modelo" name="modelo" id="modelo"><br>
-            <label id="acabado1">Acabado</label>
-            <input type="text" class="acabado" name="acabado" id="acabado"><br>
-            <label id="combustible1">Combustible</label>
-            <select id="combustible" name="combustible">
-                <option value='diesel'>Diesel</option>
-                <option value='gasolina'>Gasolina</option>
-                <option value='hibrido'>Hibrido</option>
-                <option value='electrico'>Electrico</option>
-            </select><br>
-            <label id="ano1">Año de Matriculacion</label>
-            <input type="number" class="ano" name="ano" id="ano" min='1900' max='2023'><br>
-            <label id="cv1">Caballos</label>
-            <input type="number" class="cv" name="cv" id="cv" min="10"><br>
-            <label id="cambio1">Cambio</label>
-            <select id="cambio" name="cambio">
-                <option value='manual'>Manual</option>
-                <option value='automatico'>Automatico</option>
-            </select><br>
-            <label id="puertas1">Numero de Puertas</label>
-            <select id="puertas" name="puertas">
-                <option value='3'>3('Dos puertas + maletero')</option>
-                <option value='4'>4('Tres puertas + maletero')</option>
-                <option value='5'>5('Cuatro puertas + maletero')</option>
-            </select><br>
-            <label id="color_ext1">Color exterior</label>
-            <input type="text" class="color_ext" name="color_ext" id="color_ext"><br>
-            <label id="color_int1">Color interior</label>
-            <input type="text" class="color_int" name="color_int" id="color_int"><br>
-            <label id="km1">Kilometros</label>
-            <input type="number" class="km" name="km" id="km" placeholder="Minimo 1000 Kilometros" min='1000'><br>
-            <label id="matricula1">Matricula</label>
-            <input type="text" class="matricula" name="matricula" id="matricula"><br>
-            <label id="precio1">Precio</label>
-            <input type="number" class="precio" name="precio" id="precio" min="10"><br>
-            <label for="descripcion1">Descripcion</label>
-            <textarea id="descripcion" name="descripcion" rows="4" cols="50">
+        <div id="anuncio">
+            <?php
+            require_once('funciones.php');
+            $marcas = obtenerMarcas();
+            ?>
+            <form action="#" method="post" enctype='multipart/form-data'>
+                <label id="foto1">Foto Del Vehiculo</label>
+                <input name='foto' id='foto' type='file'><br>
+                <label id="marca1">Marca</label>
+                <select id="marca" name="marca">
+                    <?php
+                    foreach ($marcas as $marca) {
+                        echo "<option value='$marca[Nombre]'>$marca[Nombre]</option>";
+                    }
+                    ?>
+                </select><br>
+                <label id="modelo1">Modelo</label>
+                <input type="text" class="modelo" name="modelo" id="modelo"><br>
+                <label id="acabado1">Acabado</label>
+                <input type="text" class="acabado" name="acabado" id="acabado"><br>
+                <label id="combustible1">Combustible</label>
+                <select id="combustible" name="combustible">
+                    <option value='diesel'>Diesel</option>
+                    <option value='gasolina'>Gasolina</option>
+                    <option value='hibrido'>Hibrido</option>
+                    <option value='electrico'>Electrico</option>
+                </select><br>
+                <label id="ano1">Año de Matriculacion</label>
+                <input type="number" class="ano" name="ano" id="ano" min='1900' max='2023'><br>
+                <label id="cv1">Caballos</label>
+                <input type="number" class="cv" name="cv" id="cv" min="10"><br>
+                <label id="cambio1">Cambio</label>
+                <select id="cambio" name="cambio">
+                    <option value='manual'>Manual</option>
+                    <option value='automatico'>Automatico</option>
+                </select><br>
+                <label id="puertas1">Numero de Puertas</label>
+                <select id="puertas" name="puertas">
+                    <option value='3'>3('Dos puertas + maletero')</option>
+                    <option value='4'>4('Tres puertas + maletero')</option>
+                    <option value='5'>5('Cuatro puertas + maletero')</option>
+                </select><br>
+                <label id="color_ext1">Color exterior</label>
+                <input type="text" class="color_ext" name="color_ext" id="color_ext"><br>
+                <label id="color_int1">Color interior</label>
+                <input type="text" class="color_int" name="color_int" id="color_int"><br>
+                <label id="km1">Kilometros</label>
+                <input type="number" class="km" name="km" id="km" placeholder="Minimo 1000 Kilometros" min='1000'><br>
+                <label id="matricula1">Matricula</label>
+                <input type="text" class="matricula" name="matricula" id="matricula"><br>
+                <label id="precio1">Precio</label>
+                <input type="number" class="precio" name="precio" id="precio" min="10"><br>
+                <label for="descripcion1">Descripcion</label>
+                <textarea id="descripcion" name="descripcion" rows="4" cols="50">
             </textarea>
-            <br>
-            <input name='subir_coche' id='subir_coche' class='subir_coche' type="submit" value="Subir Coche">
-            <br>
-            <input name='subir_coche_foto' id='subir_coche_foto' class='subir_coche_foto' type="submit" value="Subir Foto">
-            (Para que se publique primero debes subir foto y darle a este boton)
-        </form>
-        <a href="catalogo.php" id="volver">VOLVER</a>
-    </div>
+                <br>
+                <input name='subir_coche' id='subir_coche' class='subir_coche' type="submit" value="Subir Coche">
+                <br>
+                <input name='subir_coche_foto' id='subir_coche_foto' class='subir_coche_foto' type="submit" value="Subir Foto">
+                (Para que se publique primero debes subir foto y darle a este boton)
+            </form>
+            <a href="catalogo.php" id="volver">VOLVER</a>
+        </div>
 
-    <?php
-    if (isset($_POST['subir_coche_foto'])) {
+        <?php
+        if (isset($_POST['subir_coche_foto'])) {
 
-        $n_arch = $_FILES['foto']['name'];
-        $archivo = $_FILES['foto']['tmp_name'];
+            $n_arch = $_FILES['foto']['name'];
+            $archivo = $_FILES['foto']['tmp_name'];
 
-        $ruta = "fotoCoche/" . $n_arch;
-        $base_datos = "fotoCoche/" . $n_arch;
+            $ruta = "fotoCoche/" . $n_arch;
+            $base_datos = "fotoCoche/" . $n_arch;
 
-        move_uploaded_file($archivo, $ruta);
-    }
-    ?>
+            move_uploaded_file($archivo, $ruta);
+        }
+        ?>
 
-    <br><br><br><br><br>
-    <footer id="footer"></footer>
+        <br><br><br><br><br>
+        <footer id="footer"></footer>
     </div>
 </body>
 <script src="footer/añadirheadersfooters.js"></script>
 <script>
     let funciona = document.getElementById('funciona')
-    if(!localStorage.getItem('token')){
+    if (!localStorage.getItem('token')) {
         funciona.innerHTML = ''
         window.location.href = ('http://localhost/DWES/tfg/index.php')
     }
@@ -393,64 +393,94 @@ include_once('footer/header.php')
         let puertasImput = document.getElementById('puertas')
         let puertas = puertasImput.value;
 
+        let token = localStorage.getItem('token')
+
         let id = localStorage.getItem('id')
 
         console.log(id);
 
+        function validMatricula(valor) {
+            if (/^\d{4}?[ -]*([A-Z]{3})$/.test(valor) || /([A-Z]{1,2})?[ -]*\d{4}?[ -]*([A-Z]{1,2})$/.test(valor)) {
+                return true;
+            } else {}
+        }
+
         let username = localStorage.getItem('usernme')
 
         if (foto != "" && modelo != "" && acabado != "" && ano != "" && cv != "" && color_ext != "" && color_int != "" && matricula != "" && km != "" && precio != "" && descripcion != "") {
-            let coche = {
-                id: id,
-                username: username,
-                marca: marca,
-                modelo: modelo,
-                acabado: acabado,
-                combustible: combustible,
-                ano: ano,
-                cv: cv,
-                cambio: cambio,
-                color_ext: color_ext,
-                color_int: color_int,
-                matricula: matricula,
-                km: km,
-                precio: precio,
-                descripcion: descripcion,
-                puertas: puertas,
-                foto: foto
+            if (ano < 2023 && ano > 1900) {
+                let mat = validMatricula(matricula)
+                if (mat) {
+                    if (cv > -1 && cv < 1501) {
+                        if (km > 999 && km < 500000001) {
+                            let coche = {
+                                id: id,
+                                username: username,
+                                marca: marca,
+                                modelo: modelo,
+                                acabado: acabado,
+                                combustible: combustible,
+                                ano: ano,
+                                cv: cv,
+                                cambio: cambio,
+                                color_ext: color_ext,
+                                color_int: color_int,
+                                matricula: matricula,
+                                km: km,
+                                precio: precio,
+                                descripcion: descripcion,
+                                puertas: puertas,
+                                foto: foto,
+                                token: token
+                            }
+
+                            let cocheJson = JSON.stringify(coche);
+                            console.log(cocheJson);
+
+                            fetch('APIS/insertar_coche.php', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json;charser=utf-8'
+                                    },
+                                    body: cocheJson
+                                })
+
+                                .then(response => {
+                                    switch (response.status) {
+                                        case 201:
+                                            alert("Insertado Con Exito");
+                                            let insertFoto = document.getElementById('subir_coche_foto').className = "act"
+                                            break;
+                                        case 409:
+                                            alert("Vehiculo existente");
+                                            break;
+                                        case 400:
+                                            alert("ERROR");
+                                    }
+                                    return response.json();
+
+                                })
+
+                                .then(data => {
+                                    console.log(data);
+
+                                })
+
+                        } else {
+                            alert('Los km deben estar entre un rango de 1000 y 500000000')
+                        }
+                    } else {
+                        alert('Los cv deben estar entre un rango de 0 y 1500')
+                    }
+
+                } else {
+                    alert('Matricula no valida')
+                }
+
+            } else {
+                alert('Año fuera del rango de 1900 y 2023')
             }
 
-            let cocheJson = JSON.stringify(coche);
-            console.log(cocheJson);
-
-            fetch('APIS/insertar_coche.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json;charser=utf-8'
-                    },
-                    body: cocheJson
-                })
-
-                .then(response => {
-                    switch (response.status) {
-                        case 201:
-                            alert("Insertado Con Exito");
-                            let insertFoto = document.getElementById('subir_coche_foto').className = "act"
-                            break;
-                        case 409:
-                            alert("Vehiculo existente");
-                            break;
-                        case 400:
-                            alert("ERROR");
-                    }
-                    return response.json();
-
-                })
-
-                .then(data => {
-                    console.log(data);
-
-                })
         } else {
             alert('Faltan Datos Por Rellenar')
         }

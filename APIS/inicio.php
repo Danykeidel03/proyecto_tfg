@@ -26,13 +26,14 @@ $db = new Conexion();
 
             $pass2 = $row['pass'];
             $rol = $row['role'];
+            $sql2 = $row['id_usuario'];
 
             if (password_verify($pass, $pass2)) {
                 // HAGO LAS VARIABLES DEL JWT Y LO CODIFICO
                 $key = 'classic_car_trader';
                 $payload = [
                     'username' => $username,
-                    'id' => $sql,
+                    'id' => $sql2,
                 ];
                 $jwt = JWT::encode($payload, $key, 'HS256');
                 $result = $db->query($sql);

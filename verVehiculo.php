@@ -89,7 +89,7 @@ include_once('footer/header.php')
             <div class="linea">&nbsp;</div>
 
             <div class="leyenda">
-                <h1>Actualizar Noticias</h1>
+                <h1>Eliminar Anuncios</h1>
             </div>
 
             <div class="linea">&nbsp;</div>
@@ -152,7 +152,20 @@ include_once('footer/header.php')
 <script src="footer/añadirheadersfooters.js"></script>
 <script>
     let funciona = document.getElementById('funciona')
-    if (!localStorage.getItem('token') || localStorage.getItem('rol') == "usuario") {
+    function desencriptar(palabraEncriptada, clave) {
+  var palabra = "";
+  for (var i = 0; i < palabraEncriptada.length; i++) {
+    var letra = palabraEncriptada.charCodeAt(i) ^ clave.charCodeAt(i % clave.length);
+    palabra += String.fromCharCode(letra);
+  }
+  return palabra;
+}
+
+    let rol = localStorage.getItem('rol')
+
+    let rol1 = desencriptar(rol, 'hola')
+
+    if (localStorage.getItem('token') && rol1 != "admin") {
         funciona.innerHTML = ''
         window.location.href = ('http://localhost/DWES/tfg/index.php')
     }

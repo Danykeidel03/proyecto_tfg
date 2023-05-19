@@ -161,7 +161,7 @@
     include_once('footer/header.php')
     ?>
     <div id="general">
-        <div style="width:1340px;margin-left:8%;margin-top:20px;">
+        <div style="width:1340px;margin-left:9%;margin-top:20px;">
             <div class="linea">&nbsp;</div>
 
             <div class="leyenda">
@@ -200,7 +200,20 @@
 </body>
 <script src="footer/añadirheadersfooters.js"></script>
 <script>
-    if (localStorage.getItem('token') && localStorage.getItem('rol') == "admin") {
+    function desencriptar(palabraEncriptada, clave) {
+  var palabra = "";
+  for (var i = 0; i < palabraEncriptada.length; i++) {
+    var letra = palabraEncriptada.charCodeAt(i) ^ clave.charCodeAt(i % clave.length);
+    palabra += String.fromCharCode(letra);
+  }
+  return palabra;
+}
+
+    let rol = localStorage.getItem('rol')
+
+    let rol1 = desencriptar(rol, 'hola')
+
+    if (localStorage.getItem('token') && rol1 == "admin") {
         let crearRuta = document.getElementById('añadir_not');
         crearRuta.innerHTML = `<a href="actualizarFichas.php" id="act">Añadir Ficha</a>`;
     }

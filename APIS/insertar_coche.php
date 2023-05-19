@@ -1,5 +1,8 @@
 <?php
 
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
 require 'conexion.php';
 require '../vendor/autoload.php';
 $db = new Conexion();
@@ -29,36 +32,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $descripcion = $coche->descripcion;
         $puertas = $coche->puertas;
         $foto = $coche->foto;
+        $token = $coche->token;
 
-        //CONSULTA
+        $decoded = JWT::decode($user->token, new Key('example_key', 'HS256'));
 
-        $sql = "INSERT INTO `practicas`.`vehiculos_venta` (`marca`, `modelo`, `acabado`, `color_ext`, `color_int`, `precio`, `cv`, `combustible`, `puertas`, `km`, `ano`, `foto`, `id_vendedor`, `matricula`, `cambio`, `estado`, `descripcion`) VALUES ('$marca', '$modelo', '$acabado', '$color_ext', '$color_int', '$precio', '$cv', '$combustible', '$puertas', '$km', '$ano', '$foto', '$id', '$matricula', '$cambio' , 'En Venta', '$descripcion');";
+        if ($user->username == $decoded->username) {
+            $sql = "INSERT INTO `practicas`.`vehiculos_venta` (`marca`, `modelo`, `acabado`, `color_ext`, `color_int`, `precio`, `cv`, `combustible`, `puertas`, `km`, `ano`, `foto`, `id_vendedor`, `matricula`, `cambio`, `estado`, `descripcion`) VALUES ('$marca', '$modelo', '$acabado', '$color_ext', '$color_int', '$precio', '$cv', '$combustible', '$puertas', '$km', '$ano', '$foto', '$id', '$matricula', '$cambio' , 'En Venta', '$descripcion');";
 
-        //CONSULTA PARA COMPROBAR QUE EXISTE
-        $sql2 = "SELECT * FROM `practicas`.`vehiculos_venta` WHERE matricula = '$matricula'";
+            //CONSULTA PARA COMPROBAR QUE EXISTE
+            $sql2 = "SELECT * FROM `practicas`.`vehiculos_venta` WHERE matricula = '$matricula'";
 
-        try {
-            //SI XSITE NO LO INSERTA SI NO, SI
-            $usuarios = $db->query($sql2)->fetch_all(MYSQLI_ASSOC);
-            if (count($usuarios) > 0) {
-                header("HTTP/1.1 409 Username exist");
-                header("Content-Type: application/json");
-                echo json_encode([
-                    'success' => false,
-                    'msg' => "El nombre de usuario ya existe"
-                ]);
-            } else {
-                $db->query($sql);
-                header("HTTP/1.1 201 Created");
-                header("Content-Type: application/json");
-                echo json_encode([
-                    'success' => true,
-                    'msg' => "El usuario se ha creado correctamente"
-                ]);
+            try {
+                //SI XSITE NO LO INSERTA SI NO, SI
+                $usuarios = $db->query($sql2)->fetch_all(MYSQLI_ASSOC);
+                if (count($usuarios) > 0) {
+                    header("HTTP/1.1 409 Username exist");
+                    header("Content-Type: application/json");
+                    echo json_encode([
+                        'success' => false,
+                        'msg' => "El nombre de usuario ya existe"
+                    ]);
+                } else {
+                    $db->query($sql);
+                    header("HTTP/1.1 201 Created");
+                    header("Content-Type: application/json");
+                    echo json_encode([
+                        'success' => true,
+                        'msg' => "El usuario se ha creado correctamente"
+                    ]);
+                }
+            } catch (mysqli_sql_exception $e) {
+                header("HTTP/1.1 400 Bad Request");
             }
-        } catch (mysqli_sql_exception $e) {
-            header("HTTP/1.1 400 Bad Request");
+        }else {
+            header("HTTP/1.1 401 Bad Request");
         }
+
     } else {
         header("HTTP/1.1 401 Bad Request");
     }

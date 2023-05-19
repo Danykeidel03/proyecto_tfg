@@ -174,10 +174,27 @@ include_once('footer/header.php')
 </body>
 <script src="footer/añadirheadersfooters.js"></script>
 <script>
-    let funciona = document.getElementById('funciona')
-    if(!localStorage.getItem('token') || localStorage.getItem('rol') == "usuario"){
-        funciona.innerHTML = ''
-        window.location.href = ('http://localhost/DWES/tfg/index.php')
+    function desencriptar(palabraEncriptada, clave) {
+  var palabra = "";
+  for (var i = 0; i < palabraEncriptada.length; i++) {
+    var letra = palabraEncriptada.charCodeAt(i) ^ clave.charCodeAt(i % clave.length);
+    palabra += String.fromCharCode(letra);
+  }
+  return palabra;
+}
+
+    let rol = localStorage.getItem('rol')
+
+    if(rol == null){
+        window.location.href = ('index.php')
+
+    }else{
+        let rol1 = desencriptar(rol, 'hola')
+
+if (localStorage.getItem('token') && (rol1 == "usuario" )) {
+    funciona.innerHTML = ''
+    window.location.href = ('index.php')
+}
     }
 </script>
 </html>

@@ -9,6 +9,10 @@
     <title>Document</title>
 </head>
 <style>
+    form {
+        margin-left: 30%;
+    }
+
     .linea {
         margin: 0px 20px;
         width: 36%;
@@ -84,14 +88,14 @@
     }
 
     #foto_coche {
-        margin-left: 34px;
+        /* margin-left: 34px; */
         background-color: white;
         width: 300px;
 
     }
 
     #ficha_coche {
-        margin-left: -24px;
+        /* margin-left: -24px; */
         background-color: white;
         width: 300px;
     }
@@ -139,6 +143,49 @@
         }
     }
 
+    #eliminar_ficha {
+        /* align-items: center; */
+        background-color: rgba(240, 240, 240, 0.26);
+        border: 1px solid #DFDFDF;
+        border-radius: 16px;
+        box-sizing: border-box;
+        color: #000000;
+        cursor: pointer;
+        display: flex;
+        font-family: Inter, sans-serif;
+        font-size: 16px;
+        justify-content: center;
+        line-height: 5px;
+        max-width: 100%;
+        padding: 14px 22px;
+        text-decoration: none;
+        transition: all .2s;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        width: 40px;
+        height: 40px;
+        margin-top: 15px;
+    }
+
+    #eliminar_ficha:active,
+    #eliminar_ficha:hover {
+        outline: 0;
+    }
+
+    #eliminar_ficha:hover {
+        background-color: #FFFFFF;
+        border-color: rgba(0, 0, 0, 0.19);
+    }
+
+    @media (min-width: 768px) {
+        .eliminar_ficha {
+            font-size: 20px;
+            min-width: 200px;
+            padding: 14px 16px;
+        }
+    }
+
     h1,
     #act,
     a,
@@ -151,6 +198,20 @@
         font-family: 'Open Sans', sans-serif;
         font-family: 'Ubuntu', sans-serif;
     }
+
+    #nombre_coche,
+    #foto_coche,
+    #ficha_coche,
+    #nombres {
+        display: flex;
+        width: 695px;
+        padding: 10px;
+        background-color: #f7f7f7;
+        color: #333;
+        border: none;
+        border-radius: 4px;
+        margin-top: 15px;
+    }
 </style>
 <?php
 include_once('footer/header.php')
@@ -158,7 +219,7 @@ include_once('footer/header.php')
 
 <body>
     <div id="funciona">
-        <div style="width:1400px;margin:auto;margin-top:20px;">
+        <div style="width:1400px;margin-left:8%;margin-top:20px;">
             <div class="linea">&nbsp;</div>
 
             <div class="leyenda">
@@ -196,11 +257,25 @@ include_once('footer/header.php')
             $ruta1 = "fotoFichas/" . $n_arch1;
             $base_datos1 = "fotoFichas/" . $n_arch1;
 
-            move_uploaded_file($archivo1, $ruta1);
+            if ($nombre != "" && $base_datos1 != "" && $base_datos != "") {
+                
 
-            include_once('funciones.php');
+                include_once('funciones.php');
 
-            guardarFicha($nombre, $base_datos1, $base_datos);
+                $f = fichaRep($nombre);
+
+                if($f == null){
+                    guardarFicha($nombre, $base_datos1, $base_datos);
+                    move_uploaded_file($archivo1, $ruta1);
+                }else{
+                    echo "<script>alert('Nombre repetido')</script>";
+                }
+
+                
+            }
+            else{
+                echo "<script>alert('Faltan Datos Por rellenar')</script>";
+            }
         }
         ?>
         <form action="#" method="post">
@@ -229,16 +304,36 @@ include_once('footer/header.php')
         ?>
         <br><br><br>
         <a href="fichas.php">VOLVER</a>
-
+        <br><br><br>
         <footer id="footer"></footer>
     </div>
 </body>
 <script>
     let funciona = document.getElementById('funciona')
-    if(!localStorage.getItem('token') || localStorage.getItem('rol') == "usuario"){
-        funciona.innerHTML = ''
-        window.location.href = ('http://localhost/DWES/tfg/index.php')
+    function desencriptar(palabraEncriptada, clave) {
+  var palabra = "";
+  for (var i = 0; i < palabraEncriptada.length; i++) {
+    var letra = palabraEncriptada.charCodeAt(i) ^ clave.charCodeAt(i % clave.length);
+    palabra += String.fromCharCode(letra);
+  }
+  return palabra;
+}
+
+    let rol = localStorage.getItem('rol')
+
+    if(rol == null){
+        window.location.href = ('index.php')
+
+    }else{
+        let rol1 = desencriptar(rol, 'hola')
+
+if (localStorage.getItem('token') && (rol1 == "usuario" )) {
+    funciona.innerHTML = ''
+    window.location.href = ('index.php')
+}
     }
+
+    
 </script>
 <script src="footer/añadirheadersfooters.js"></script>
 

@@ -9,6 +9,8 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 </head>
 <style>
+    
+
     .linea {
         margin: 0px 20px;
         width: 36%;
@@ -133,7 +135,6 @@ $idVend = $_REQUEST['id_1'];
                 <button type="submit" name='env_msg' id='env_msg' class='env_msg' style="background-color: #4CAF50; border: none; color: white; border-radius: 5px; padding: 5px 10px;">Enviar</button>
             </form>
         </div>
-
         <?php
         if (isset($_REQUEST['env_msg'])) {
             $idComp1 = $_REQUEST['miCampoOculto'];
@@ -168,7 +169,7 @@ $idVend = $_REQUEST['id_1'];
 
     if (id == id1) {
         funciona.innerHTML = ''
-        window.location.href = ('http://localhost/DWES/tfg/index.php')
+        window.location.href = ('index.php')
     } else {
         setInterval(() => {
             fetch(`APIS/mensajes.php?idVendedor=${id1}&idComprador=${id}`, {
@@ -231,7 +232,7 @@ $idVend = $_REQUEST['id_1'];
     let funciona = document.getElementById('funciona')
     if (!localStorage.getItem('token')) {
         funciona.innerHTML = ''
-        window.location.href = ('http://localhost/DWES/tfg/index.php')
+        window.location.href = ('index.php')
     }
 </script>
 

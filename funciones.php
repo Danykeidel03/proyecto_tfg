@@ -244,3 +244,17 @@ function verChats($id_vendedor)
     }
     return $cht;
 }
+
+
+function fichaRep($nombre)
+{
+    $coche = false;
+    try {
+        $con = mysqli_connect("practicas.appsbecallgroup.com", "practicas", "Vareta69*", "practicas");
+        $sql = "SELECT * FROM fichas_tecnicas WHERE nombre='$nombre'";
+        $coche = $con->query($sql)->fetch_assoc();
+    } catch (mysqli_sql_exception $e) {
+        $coche = false;
+    }
+    return $coche;
+}

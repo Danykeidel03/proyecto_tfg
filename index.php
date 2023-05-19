@@ -167,7 +167,9 @@
     }
 
     h1,
-    #act,a,h4 {
+    #act,
+    a,
+    h4 {
         color: #7f0000;
         font-family: 'Bebas Neue', cursive;
         font-family: 'Cinzel', serif;
@@ -176,19 +178,21 @@
         font-family: 'Open Sans', sans-serif;
         font-family: 'Ubuntu', sans-serif;
     }
-    html{
+
+    html {
         height: 100%;
     }
 
-    body{
+    body {
         display: flex;
         flex-direction: column;
         min-height: 100%;
     }
 
-    footer{
+    footer {
         margin-top: auto;
     }
+
     /* #ver_mas{
         margin-top : 266px;
         margin-left: -70px;
@@ -203,13 +207,13 @@
     include_once('footer/header.php')
     ?>
     <?php
-            if (isset($_REQUEST['marc_vend'])) {
-                require_once('funciones.php');
+    if (isset($_REQUEST['marc_vend'])) {
+        require_once('funciones.php');
 
-                $id = $_REQUEST['id_d'];
-                $edit = cambiarEst($id);
-            }
-            ?>
+        $id = $_REQUEST['id_d'];
+        $edit = cambiarEst($id);
+    }
+    ?>
     <div id="general">
 
         <img src="img/inicio1.jpg" width="100%" height="700px">
@@ -223,7 +227,9 @@
                 <h1>ULTIMAS NOTICIAS</h1>
             </div>
 
-            <div class="linea">&nbsp;</div>
+            <div class="linea">&nbsp;
+
+            </div>
 
             <br><br><br><br><br>
             <div id="añadir_not"></div>
@@ -252,7 +258,20 @@
 </body>
 <script src="footer/añadirheadersfooters.js"></script>
 <script>
-    if (localStorage.getItem('token') && localStorage.getItem('rol') == "admin") {
+    function desencriptar(palabraEncriptada, clave) {
+  var palabra = "";
+  for (var i = 0; i < palabraEncriptada.length; i++) {
+    var letra = palabraEncriptada.charCodeAt(i) ^ clave.charCodeAt(i % clave.length);
+    palabra += String.fromCharCode(letra);
+  }
+  return palabra;
+}
+
+    let rol = localStorage.getItem('rol')
+
+    let rol1 = desencriptar(rol, 'hola')
+
+    if (localStorage.getItem('token') && rol1 == "admin") {
         let crearRuta = document.getElementById('añadir_not');
         crearRuta.innerHTML = `<a href="actualizarNoticias.php" id="act">Añadir Noticia</a>`;
     }

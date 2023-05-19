@@ -243,7 +243,7 @@
                     <form id="f">
                         <div id="tx">
                             <input type="text" id="marca" name="marca" placeholder="Marca Coche">
-                            <input type="number" id="precio" name="precio" placeholder="Precio Maximo Coche">
+                            <input type="number" id="precio" name="precio" placeholder="Precio Maximo Coche" pattern="[0-9]*">
                             <input type="number" id="cv" name="cv" placeholder="Minimo De Caballos Coche">
                             <input type="number" id="km" name="km" placeholder="Maximo De Kilometros Coche">
                             <input type="number" id="ano" name="ano" placeholder="Hasta El Año">

@@ -820,7 +820,7 @@
         }
 
         function validarEmail(valor) {
-            if (/^\w+([\.-]?\w+)*@(?:|hotmail|outlook|yahoo|live|gmail)\.(?:|com|es)+$/.test(valor)) {
+            if (/^[a-z]*[@]{1}[a-z]*[\.]{1}[a-z]{2,3}$/.test(valor)) {
                 return true;
             } else {
                 alert("La dirección de email es incorrecta.");
@@ -968,10 +968,22 @@
                         let token = data.token;
                         let id = data.id[0].id_usuario;
                         let rol = data.rol;
+
+                        function encriptar(palabra, clave) {
+                            var palabraEncriptada = "";
+                            for (var i = 0; i < palabra.length; i++) {
+                                var letra = palabra.charCodeAt(i) ^ clave.charCodeAt(i % clave.length);
+                                palabraEncriptada += String.fromCharCode(letra);
+                            }
+                            return palabraEncriptada;
+                        }
+
+                        let rol1 = encriptar(rol, 'hola')
+
                         localStorage.setItem('username', username);
                         localStorage.setItem('token', token);
                         localStorage.setItem('id', id);
-                        localStorage.setItem('rol', rol);
+                        localStorage.setItem('rol', rol1);
                         modal.style.display = "none";
                         body.style.position = "inherit";
                         body.style.height = "auto";
