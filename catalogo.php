@@ -274,7 +274,20 @@
 </body>
 <script src="footer/añadirheadersfooters.js"></script>
 <script>
-    if (localStorage.getItem('token') && localStorage.getItem('rol') == "admin") {
+    function desencriptar(palabraEncriptada, clave) {
+  var palabra = "";
+  for (var i = 0; i < palabraEncriptada.length; i++) {
+    var letra = palabraEncriptada.charCodeAt(i) ^ clave.charCodeAt(i % clave.length);
+    palabra += String.fromCharCode(letra);
+  }
+  return palabra;
+}
+
+    let rol = localStorage.getItem('rol')
+
+    let rol1 = desencriptar(rol, 'hola')
+
+    if (localStorage.getItem('token') && rol1 == "admin") {
         let crearRuta = document.getElementById('añadir_not');
         crearRuta.innerHTML = `<a href="añadirVehiculo.php" id="act">Subir Anuncio</a><br><br><a href="verVehiculo.php" id="act">Ver Anuncios</a>`;
     }

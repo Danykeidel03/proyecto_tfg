@@ -130,17 +130,6 @@ include_once('footer/header.php')
         }
         echo "</table>
         </center>";
-
-        if(isset($_REQUEST['delete'])){
-
-            $id = $_REQUEST['id'];
-
-            $eliminado = deleteAnuncio($id);
-
-            if($eliminado){
-                echo "<h2>El coche con id $id ha sido eliminado</h2>";
-            }
-        }
         ?>
         <br><br><br>
         <a href="index.php">VOLVER</a>
@@ -152,14 +141,15 @@ include_once('footer/header.php')
 <script src="footer/añadirheadersfooters.js"></script>
 <script>
     let funciona = document.getElementById('funciona')
+
     function desencriptar(palabraEncriptada, clave) {
-  var palabra = "";
-  for (var i = 0; i < palabraEncriptada.length; i++) {
-    var letra = palabraEncriptada.charCodeAt(i) ^ clave.charCodeAt(i % clave.length);
-    palabra += String.fromCharCode(letra);
-  }
-  return palabra;
-}
+        var palabra = "";
+        for (var i = 0; i < palabraEncriptada.length; i++) {
+            var letra = palabraEncriptada.charCodeAt(i) ^ clave.charCodeAt(i % clave.length);
+            palabra += String.fromCharCode(letra);
+        }
+        return palabra;
+    }
 
     let rol = localStorage.getItem('rol')
 
@@ -167,7 +157,77 @@ include_once('footer/header.php')
 
     if (localStorage.getItem('token') && rol1 != "admin") {
         funciona.innerHTML = ''
-        window.location.href = ('http://localhost/DWES/tfg/index.php')
+        window.location.href = ('index.php')
+    }
+</script>
+<script>
+    let borrarC = document.getElementById('delete')
+    borrarC.addEventListener('click', borrarCoche)
+
+    function borrarCoche() {
+
+        event.preventDefault();
+
+        let imputUsuEdit = document.querySelector('#id');
+        let id = imputUsuEdit.value;
+
+        let token = localStorage.getItem('token')
+        let username = localStorage.getItem('username')
+
+        let persona = {
+            id: id,
+            username: username,
+            token: token,
+        }
+
+        let usuario = JSON.stringify(persona);
+
+        fetch(`APIS/deleteCoche.php`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': token,
+                },
+                body: usuario
+            })
+
+            .then(response => {
+                switch (response.status) {
+                    case 200:
+                        alert("Vehiculo Eliminado");
+                        return response.json();
+                        break;
+                    case 400:
+                        alert("ERROR");
+                        break;
+                    case 404:
+                        alert("No indicaste el id");
+                        break;
+                }
+            })
+
+            .then(data => {
+                if (data == null) {
+                    console.log(data);
+                    localStorage.removeItem('token')
+                    localStorage.removeItem('id')
+                    modal2.style.display = "none";
+                    body2.style.position = "inherit";
+                    body2.style.height = "auto";
+                    body2.style.overflow = "visible";
+                    window.location.href = ('#')
+                    window.location.reload()
+                } else {
+                    console.log(data);
+                    localStorage.removeItem('token')
+                    localStorage.removeItem('id')
+                    modal2.style.display = "none";
+                    body2.style.position = "inherit";
+                    body2.style.height = "auto";
+                    body2.style.overflow = "visible";
+                    window.location.href = ('#')
+                    window.location.reload()
+                }
+            })
     }
 </script>
 

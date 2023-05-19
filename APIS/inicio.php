@@ -34,6 +34,7 @@ $db = new Conexion();
                 $payload = [
                     'username' => $username,
                     'id' => $sql2,
+                    'rol' => $rol,
                 ];
                 $jwt = JWT::encode($payload, $key, 'HS256');
                 $result = $db->query($sql);
