@@ -397,15 +397,13 @@ include_once('footer/header.php')
 
         let id = localStorage.getItem('id')
 
-        console.log(id);
-
         function validMatricula(valor) {
             if (/^\d{4}?[ -]*([A-Z]{3})$/.test(valor) || /([A-Z]{1,2})?[ -]*\d{4}?[ -]*([A-Z]{1,2})$/.test(valor)) {
                 return true;
             } else {}
         }
 
-        let username = localStorage.getItem('usernme')
+        let username = localStorage.getItem('nombre')
 
         if (foto != "" && modelo != "" && acabado != "" && ano != "" && cv != "" && color_ext != "" && color_int != "" && matricula != "" && km != "" && precio != "" && descripcion != "") {
             if (ano < 2023 && ano > 1900) {
@@ -454,7 +452,7 @@ include_once('footer/header.php')
                                         case 409:
                                             alert("Vehiculo existente");
                                             break;
-                                        case 400:
+                                        case 401:
                                             alert("ERROR");
                                     }
                                     return response.json();

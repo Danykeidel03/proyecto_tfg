@@ -78,7 +78,7 @@
     .div2_10 {
         grid-area: 1 / 4 / 6 / 5;
         border: 1px black solid;
-        height: 450px;
+        height: 490px;
         /* text-align: center; */
     }
 
@@ -125,7 +125,8 @@
     }
 
     td {
-        padding: 10px;
+        padding: 12px;
+        padding-left: 20px;
     }
 
     #de {
@@ -214,19 +215,19 @@ include_once('footer/header.php')
                     <table class='greyGridTable'>
                     <tbody>
                     <tr>
-                    <td>Color: $color</td>
-                    <td>Color del Interior: $color_int</td>
-                    <td>Caballos: $cv</td>
+                    <td>Color: <b>$color</b></td>
+                    <td>Color del Interior: <b>$color_int</b></td>
+                    <td>Caballos: <b>$cv</b></td>
                     </tr>
                     <tr>
-                    <td>Kilometros: $km</td>
-                    <td>Año: $ano</td>
-                    <td>Matricula: $matricula</td>
+                    <td>Kilometros: <b>$km</b></td>
+                    <td>Año: <b>$ano</b></td>
+                    <td>Matricula: <b>$matricula</b></td>
                     </tr>
                     <tr>
-                    <td>Cambio: $cambio</td>
-                    <td>Numero de Puertas: $puertas</td>
-                    <td>Combustible: $combustible</td>
+                    <td>Cambio: <b>$cambio</b></td>
+                    <td>Numero de Puertas: <b>$puertas</b></td>
+                    <td>Combustible: <b>$combustible</b></td>
                     </tr>
                     </tbody>
                     </table> 

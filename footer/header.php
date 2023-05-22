@@ -340,6 +340,10 @@
         margin-top: 17px;
     }
 
+    a:hover{
+        color: #000;
+    }
+
     p,
     a {
         font-size: 17px;
@@ -678,7 +682,7 @@
         localStorage.removeItem('id')
         localStorage.removeItem('rol')
         localStorage.removeItem('username')
-        window.location.href = ('http://localhost/DWES/tfg/index.php')
+        window.location.href = ('index.php')
     }
 </script>
 <script>

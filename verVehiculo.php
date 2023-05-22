@@ -8,7 +8,96 @@
 
     <title>Document</title>
 </head>
+
 <style>
+    #delete {
+        /* align-items: center; */
+        background-color: rgba(240, 240, 240, 0.26);
+        border: 1px solid #DFDFDF;
+        border-radius: 16px;
+        box-sizing: border-box;
+        color: #000000;
+        cursor: pointer;
+        display: flex;
+        font-family: Inter, sans-serif;
+        font-size: 16px;
+        justify-content: center;
+        line-height: 5px;
+        max-width: 100%;
+        padding: 14px 22px;
+        text-decoration: none;
+        transition: all .2s;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        width: 40px;
+        height: 40px;
+        margin-top: 15px;
+        margin-left: 30px;
+    }
+
+    #delete:active,
+    #delete:hover {
+        outline: 0;
+    }
+
+    #delete:hover {
+        background-color: #FFFFFF;
+        border-color: rgba(0, 0, 0, 0.19);
+    }
+
+    @media (min-width: 768px) {
+        .delete {
+            font-size: 20px;
+            min-width: 200px;
+            padding: 14px 16px;
+        }
+    }
+
+    #id {
+        /* align-items: center; */
+        background-color: rgba(240, 240, 240, 0.26);
+        border: 1px solid #DFDFDF;
+        border-radius: 16px;
+        box-sizing: border-box;
+        color: #000000;
+        cursor: pointer;
+        display: flex;
+        font-family: Inter, sans-serif;
+        font-size: 16px;
+        justify-content: center;
+        line-height: 5px;
+        max-width: 100%;
+        padding: 14px 22px;
+        text-decoration: none;
+        transition: all .2s;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        width: 200px;
+        height: 60px;
+        margin-top: 15px;
+        margin-left: 30px;
+    }
+
+    #id:active,
+    #id:hover {
+        outline: 0;
+    }
+
+    #id:hover {
+        background-color: #FFFFFF;
+        border-color: rgba(0, 0, 0, 0.19);
+    }
+
+    @media (min-width: 768px) {
+        .id {
+            font-size: 20px;
+            min-width: 200px;
+            padding: 14px 16px;
+        }
+    }
+
     .linea {
         margin: 0px 20px;
         width: 36%;
@@ -76,6 +165,11 @@
         margin-right: 0px;
         margin-bottom: 0px;
     }
+
+    #tab_next,#tab_previous,.paginate_button{
+        position: relative;
+        cursor: pointer;
+    }
 </style>
 <?php
 include_once('footer/header.php')
@@ -99,36 +193,53 @@ include_once('footer/header.php')
         <?php
         require_once('funciones.php');
         $car = mostrarAnuncios();
+        $ids = obtenerId();
+        
         echo "
+        <form>
+            <select id='id' name='id'>
+        ";
+        foreach($ids as $id){
+            echo "
+            <option value='$id[id]'>$id[id] --- $id[matricula]</option>
+            ";
+        }
+       
+
+        echo"
+            </select>
+            <input value='ELIMINAR' class='delete' id='delete' name='delete' type='submit'>
+
+        </form>
+        <br><br>
         <center>
-            <table>
-                <tH>ID</tH>
+            <table id='tab'>
+            <thead class='table-dark'>
+            <tr>
+                <th>ID</th>
                 <th>MARCA</th>
                 <th>MODELO</th>
                 <th>MATRICULA</th>
                 <th>FOTO</th>
-                <th>ELIMINAR ANUNCIO</th>
+            </tr>
+            </thead>
+            <tbody>
+            
         ";
         foreach ($car as $coche) {
             $fo = $coche['foto'];
 
             echo "
-        <tr>
+        <tr id='prueba'>
             <td>$coche[id]</td>
             <td>$coche[marca]</td>
             <td>$coche[modelo]</td>
             <td>$coche[matricula]</td>
             <td><img src='fotoCoche/$fo' width='300px' height='150px'></td>
-            <td>
-            <form action='#'>
-            <input value='$coche[id]' name='id' id='id' type='hidden'>
-            <input value='ELIMINAR' name='delete' id='delete' class='delete' type='submit'>
-            </form>
-            </td>
         </tr>
         ";
         }
-        echo "</table>
+        echo "</tbody></table>
         </center>";
         ?>
         <br><br><br>
@@ -138,6 +249,22 @@ include_once('footer/header.php')
     </div>
     <footer id="footer"></footer>
 </body>
+<script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/searchbuilder/1.4.0/js/dataTables.searchBuilder.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#tab').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+            }
+        });
+    });
+</script>
+
 <script src="footer/añadirheadersfooters.js"></script>
 <script>
     let funciona = document.getElementById('funciona')
@@ -161,7 +288,7 @@ include_once('footer/header.php')
     }
 </script>
 <script>
-    let borrarC = document.getElementById('delete')
+    let borrarC = document.querySelector('.delete')
     borrarC.addEventListener('click', borrarCoche)
 
     function borrarCoche() {
@@ -174,6 +301,8 @@ include_once('footer/header.php')
         let token = localStorage.getItem('token')
         let username = localStorage.getItem('username')
 
+        console.log(id);
+
         let persona = {
             id: id,
             username: username,
@@ -181,6 +310,8 @@ include_once('footer/header.php')
         }
 
         let usuario = JSON.stringify(persona);
+
+        console.log(usuario);
 
         fetch(`APIS/deleteCoche.php`, {
                 method: 'DELETE',
@@ -206,27 +337,7 @@ include_once('footer/header.php')
             })
 
             .then(data => {
-                if (data == null) {
-                    console.log(data);
-                    localStorage.removeItem('token')
-                    localStorage.removeItem('id')
-                    modal2.style.display = "none";
-                    body2.style.position = "inherit";
-                    body2.style.height = "auto";
-                    body2.style.overflow = "visible";
-                    window.location.href = ('#')
-                    window.location.reload()
-                } else {
-                    console.log(data);
-                    localStorage.removeItem('token')
-                    localStorage.removeItem('id')
-                    modal2.style.display = "none";
-                    body2.style.position = "inherit";
-                    body2.style.height = "auto";
-                    body2.style.overflow = "visible";
-                    window.location.href = ('#')
-                    window.location.reload()
-                }
+                console.log(data);
             })
     }
 </script>

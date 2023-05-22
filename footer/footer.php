@@ -61,13 +61,13 @@
 <footer>
     <div class="parent">
         <div class="div1">
-            <p>INFORMACION</p>
+            <a href="index.php" id="inicio">INICIO</a>
         </div>
         <div class="div2">
-            <p>Informacion</p>
+            <a href="fichas.php" id="inicio">FICHAS</a>
         </div>
         <div class="div3">
-            <p>Informacion</p>
+        <a href="catalogo.php" id="inicio">COMPRAR</a>
         </div>
         <div class="div4">
             <img src="logo.png" width="100px" height="80px">

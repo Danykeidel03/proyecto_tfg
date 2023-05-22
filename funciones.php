@@ -176,6 +176,26 @@ function obtenerMarcas()
     return $alumnos;
 }
 
+function obtenerId()
+{
+    $alumnos = false;
+    try {
+        $con = mysqli_connect("practicas.appsbecallgroup.com", "practicas", "Vareta69*", "practicas");
+        $sql = "SELECT distinct id, matricula FROM vehiculos_venta ";
+        $result = mysqli_query($con, $sql);
+        mysqli_close($con);
+        if (mysqli_num_rows($result) > 0) {
+            $alumnos = array();
+            while ($reg = mysqli_fetch_assoc($result)) {
+                $alumnos[] = $reg;
+            }
+        }
+    } catch (mysqli_sql_exception $e) {
+        $alumnos = false;
+    }
+    return $alumnos;
+}
+
 
 function obtenerCoche($id)
 {

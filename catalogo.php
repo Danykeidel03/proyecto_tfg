@@ -56,7 +56,8 @@
     h1,
     #act,
     a,
-    h4 {
+    h4,
+    .parent_8 {
         color: #7f0000;
         font-family: 'Bebas Neue', cursive;
         font-family: 'Cinzel', serif;
@@ -64,6 +65,10 @@
         font-family: 'IBM Plex Mono', monospace;
         font-family: 'Open Sans', sans-serif;
         font-family: 'Ubuntu', sans-serif;
+    }
+
+    .parent_8{
+        color: black;
     }
 
     #act {
