@@ -128,7 +128,7 @@
 
     label {
         padding: 10px;
-        margin-right: 50px;
+        /* margin-right: 50px; */
 
     }
 
@@ -166,9 +166,15 @@
         margin-bottom: 0px;
     }
 
-    #tab_next,#tab_previous,.paginate_button{
+    #tab_next,
+    #tab_previous,
+    .paginate_button {
         position: relative;
         cursor: pointer;
+    }
+
+    .odd{
+        margin-left: 30px;
     }
 </style>
 <?php
@@ -194,19 +200,19 @@ include_once('footer/header.php')
         require_once('funciones.php');
         $car = mostrarAnuncios();
         $ids = obtenerId();
-        
+
         echo "
         <form>
             <select id='id' name='id'>
         ";
-        foreach($ids as $id){
+        foreach ($ids as $id) {
             echo "
             <option value='$id[id]'>$id[id] --- $id[matricula]</option>
             ";
         }
-       
 
-        echo"
+
+        echo "
             </select>
             <input value='ELIMINAR' class='delete' id='delete' name='delete' type='submit'>
 
@@ -280,11 +286,16 @@ include_once('footer/header.php')
 
     let rol = localStorage.getItem('rol')
 
-    let rol1 = desencriptar(rol, 'hola')
-
-    if (localStorage.getItem('token') && rol1 != "admin") {
-        funciona.innerHTML = ''
+    if (rol == null) {
         window.location.href = ('index.php')
+
+    } else {
+        let rol1 = desencriptar(rol, 'hola')
+
+        if (localStorage.getItem('token') && (rol1 == "usuario")) {
+            funciona.innerHTML = ''
+            window.location.href = ('index.php')
+        }
     }
 </script>
 <script>
