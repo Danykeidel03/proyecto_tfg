@@ -340,7 +340,7 @@
         margin-top: 17px;
     }
 
-    a:hover{
+    a:hover {
         color: #000;
     }
 
@@ -867,49 +867,54 @@
                     let segura = validateDNI(dni);
                     if (segura) {
                         if (validarEmail(correo)) {
-                            let persona = {
-                                fullname: nombre,
-                                username: usuario_reg,
-                                email: correo,
-                                pass: pass1,
-                                city: ciudad,
-                                dni: dni,
-                                tfno: tfno
+                            if (tfno < 700000000 && tfno >= 600000000) {
+                                let persona = {
+                                    fullname: nombre,
+                                    username: usuario_reg,
+                                    email: correo,
+                                    pass: pass1,
+                                    city: ciudad,
+                                    dni: dni,
+                                    tfno: tfno
+                                }
+                                console.log(persona)
+                                let usuario = JSON.stringify(persona);
+
+                                fetch('APIS/registro.php', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json;charser=utf-8'
+                                        },
+                                        body: usuario
+                                    })
+
+                                    .then(response => {
+                                        switch (response.status) {
+                                            case 201:
+                                                alert("REGITRADO CON EXITO");
+                                                break;
+                                            case 409:
+                                                alert("USUARIO EXISTE");
+                                                break;
+                                            case 400:
+                                                alert("ERROR");
+                                        }
+                                        return response.json();
+
+                                    })
+
+                                    .then(data => {
+                                        modal1.style.display = "none";
+                                        body1.style.position = "inherit";
+                                        body1.style.height = "auto";
+                                        body1.style.overflow = "visible";
+                                        window.location.href = ('#')
+                                        window.location.reload()
+                                    })
+                            }else{
+                                alert('Numero No Valido')
                             }
-                            console.log(persona)
-                            let usuario = JSON.stringify(persona);
 
-                            fetch('APIS/registro.php', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json;charser=utf-8'
-                                    },
-                                    body: usuario
-                                })
-
-                                .then(response => {
-                                    switch (response.status) {
-                                        case 201:
-                                            alert("REGITRADO CON EXITO");
-                                            break;
-                                        case 409:
-                                            alert("USUARIO EXISTE");
-                                            break;
-                                        case 400:
-                                            alert("ERROR");
-                                    }
-                                    return response.json();
-
-                                })
-
-                                .then(data => {
-                                    modal1.style.display = "none";
-                                    body1.style.position = "inherit";
-                                    body1.style.height = "auto";
-                                    body1.style.overflow = "visible";
-                                    window.location.href = ('#')
-                                    window.location.reload()
-                                })
                         }
                     }
                 }
